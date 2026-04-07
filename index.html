@@ -1009,6 +1009,111 @@
       animation: border-travel 4.5s linear infinite;
     }
 
+    /* ─── RECENT WORK FEATURE ────────────────────────────────────── */
+    #recentwork {
+      padding: 16px clamp(24px, 5vw, 80px) 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .recent-work-label {
+      font-family: var(--font-head);
+      font-size: clamp(1rem, 1.8vw, 1.35rem);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+    .recent-work-label em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(240,240,240,0.3);
+    }
+
+    .recent-work-perspective {
+      perspective: 1400px;
+      perspective-origin: 50% 0%;
+    }
+
+    .recent-work-frame {
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 40px 80px rgba(0,0,0,0.55),
+        0 80px 160px rgba(0,0,0,0.35);
+      transform: rotateX(18deg) scale(0.88);
+      transform-origin: center center;
+      will-change: transform;
+      cursor: pointer;
+    }
+
+    /* 16:9 video */
+    .recent-work-frame .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #060a12;
+    }
+    .recent-work-frame .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .recent-work-frame .video-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      cursor: default;
+      background: transparent;
+    }
+    .recent-work-frame .video-overlay.playing { pointer-events: none; }
+
+    /* Play button overlay */
+    .rw-play {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.18);
+      transition: opacity 0.35s ease, background 0.35s ease;
+    }
+    .rw-play.hidden { opacity: 0; pointer-events: none; }
+    .recent-work-frame:hover .rw-play { background: rgba(0,0,0,0.12); }
+
+    .rw-play-btn {
+      width: 72px;
+      height: 72px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s ease, transform 0.25s var(--ease);
+    }
+    .recent-work-frame:hover .rw-play-btn {
+      background: rgba(255,255,255,0.18);
+      transform: scale(1.1);
+    }
+    .rw-play-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: #fff;
+      margin-left: 3px;
+    }
+
     /* ─── ANIMATIONS ─────────────────────────────────────────────── */
     .fade-up {
       opacity: 0;
@@ -1113,6 +1218,36 @@
     <div class="scroll-hint" aria-hidden="true">
       <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
       Scroll
+    </div>
+  </section>
+
+  <!-- ─── RECENT WORK ──────────────────────────────────────────────── -->
+  <section id="recentwork" aria-label="Recent work">
+    <p class="recent-work-label fade-up">Recent <em>Work</em></p>
+    <div class="recent-work-perspective">
+      <!--
+        ════════════════════════════════════════════════════
+        RECENT WORK VIDEO — replace data-video-id with your
+        YouTube video ID (the part after ?v= in the URL).
+        ════════════════════════════════════════════════════
+      -->
+      <div class="recent-work-frame" id="recentWorkFrame" data-video-id="dQw4w9WgXcQ">
+        <div class="video-wrap">
+          <iframe
+            src="about:blank"
+            title="Recent Work"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+          <div class="video-overlay" oncontextmenu="return false;" aria-hidden="true"></div>
+        </div>
+        <!-- Play button overlay -->
+        <div class="rw-play" id="rwPlay" aria-label="Play video">
+          <div class="rw-play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1394,12 +1529,57 @@
 
     document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
+    // ── Recent Work — scroll-driven 3D tilt ──────────────────────
+    const rwFrame   = document.getElementById('recentWorkFrame');
+    const rwPlay    = document.getElementById('rwPlay');
+    const rwSection = document.getElementById('recentwork');
+
+    if (rwFrame && rwSection) {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function updateRWTilt() {
+        if (reducedMotion) return;
+        const rect = rwSection.getBoundingClientRect();
+        const vh   = window.innerHeight;
+        // 0 = section top just entered viewport bottom, 1 = section top at 25% from top
+        const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh * 0.75)));
+        // ease-out cubic
+        const eased    = 1 - Math.pow(1 - progress, 3);
+        const rotateX  = 18 * (1 - eased);
+        const scale    = 0.88 + 0.12 * eased;
+        const shadowY  = 80 - 60 * eased;
+        rwFrame.style.transform = `rotateX(${rotateX}deg) scale(${scale})`;
+        rwFrame.style.boxShadow = `0 0 0 1px rgba(255,255,255,0.04), 0 ${shadowY}px 160px rgba(0,0,0,${0.55 - 0.2 * eased}), 0 ${shadowY * 2}px 320px rgba(0,0,0,${0.35 - 0.15 * eased})`;
+      }
+
+      window.addEventListener('scroll', updateRWTilt, { passive: true });
+      updateRWTilt(); // run once on load
+
+      // Click to play
+      rwFrame.addEventListener('click', () => {
+        const videoId = rwFrame.dataset.videoId;
+        if (!videoId) return;
+        const iframe = rwFrame.querySelector('iframe');
+        if (!iframe || !iframe.src.includes('about:blank')) return;
+        const params = new URLSearchParams({ autoplay: '1', modestbranding: '1', rel: '0', showinfo: '0', color: 'white' });
+        iframe.src = `https://www.youtube.com/embed/${videoId}?${params}`;
+        const overlay = rwFrame.querySelector('.video-overlay');
+        if (overlay) overlay.classList.add('playing');
+        if (rwPlay) rwPlay.classList.add('hidden');
+      });
+
+      document.addEventListener('contextmenu', e => {
+        if (e.target.closest('#recentWorkFrame')) e.preventDefault();
+      });
+    }
+
     // ── Respect prefers-reduced-motion ────────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.querySelectorAll('.work-card, .fade-up').forEach(el => {
         el.style.transition = 'none';
         el.classList.add('visible');
       });
+      if (rwFrame) rwFrame.style.transform = 'rotateX(0deg) scale(1)';
     }
   </script>
 
