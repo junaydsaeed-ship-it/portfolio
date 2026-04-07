@@ -262,6 +262,44 @@
       line-height: 1.7;
     }
 
+    /* ─── BORDER TRAVEL EFFECT ──────────────────────────────────── */
+    @property --border-angle {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+    }
+    @keyframes border-travel {
+      to { --border-angle: 360deg; }
+    }
+    .short-card { position: relative; }
+    .short-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--border-angle),
+        transparent 0%,
+        transparent 68%,
+        rgba(255,255,255,0.08) 76%,
+        rgba(255,255,255,0.75) 83%,
+        rgba(255,255,255,0.08) 90%,
+        transparent 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+    .short-card:hover::after {
+      opacity: 1;
+      animation: border-travel 2.2s linear infinite;
+    }
+
     /* ─── SECTION ─────────────────────────────────────────────────── */
     section { padding: 80px clamp(24px, 5vw, 80px); }
 

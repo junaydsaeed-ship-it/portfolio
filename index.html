@@ -905,6 +905,110 @@
       color: var(--muted);
     }
 
+    /* ─── BORDER TRAVEL EFFECT ──────────────────────────────────── */
+    @property --border-angle {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+    }
+
+    @keyframes border-travel {
+      to { --border-angle: 360deg; }
+    }
+
+    /* Work cards — inset inside overflow:hidden boundary */
+    .work-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--border-angle),
+        transparent 0%,
+        transparent 68%,
+        rgba(255,255,255,0.08) 76%,
+        rgba(255,255,255,0.75) 83%,
+        rgba(255,255,255,0.08) 90%,
+        transparent 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      z-index: 10;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+    }
+    .work-card:hover::before {
+      opacity: 1;
+      animation: border-travel 2.5s linear infinite;
+    }
+
+    /* Hero buttons */
+    .btn-primary,
+    .btn-secondary { position: relative; }
+    .btn-primary::after,
+    .btn-secondary::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--border-angle),
+        transparent 0%,
+        transparent 68%,
+        rgba(255,255,255,0.12) 76%,
+        rgba(255,255,255,0.85) 83%,
+        rgba(255,255,255,0.12) 90%,
+        transparent 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .btn-primary:hover::after,
+    .btn-secondary:hover::after {
+      opacity: 1;
+      animation: border-travel 1.8s linear infinite;
+    }
+
+    /* Optimise / values cards */
+    .optimise-card { position: relative; }
+    .optimise-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(
+        from var(--border-angle),
+        transparent 0%,
+        transparent 68%,
+        rgba(255,255,255,0.08) 76%,
+        rgba(255,255,255,0.7) 83%,
+        rgba(255,255,255,0.08) 90%,
+        transparent 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .optimise-card:hover::after {
+      opacity: 1;
+      animation: border-travel 2.2s linear infinite;
+    }
+
     /* ─── ANIMATIONS ─────────────────────────────────────────────── */
     .fade-up {
       opacity: 0;
@@ -1116,7 +1220,7 @@
         Storytelling through<br>a cinematic lens.
       </h2>
       <p>
-        Based in [Your City], I'm a creative director and videographer with a passion
+        Based in London, I'm a creative director and videographer with a passion
         for crafting visuals that go beyond the frame — capturing energy, emotion,
         and identity in every project.
       </p>
