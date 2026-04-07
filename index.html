@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name — Creative Director & Videographer</title>
-  <meta name="description" content="Creative Director & Videographer — Long form and short form video portfolio." />
+  <title>PhilmsbyJay — Creative Director & Videographer</title>
+  <meta name="description" content="PhilmsbyJay — Creative Director & Videographer. Long form and short form video portfolio." />
 
   <!-- Fonts: Archivo (headings) + Space Grotesk (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -98,16 +98,20 @@
     nav.scrolled { border-bottom-color: var(--border); }
 
     .nav-logo {
-      font-family: var(--font-head);
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text);
+      display: flex;
+      align-items: center;
       text-decoration: none;
       cursor: pointer;
+      margin-left: 24px;
     }
-    .nav-logo span { color: var(--accent2); }
+    .nav-logo img {
+      height: 64px;
+      width: auto;
+      display: block;
+      filter: brightness(1);
+      transition: opacity 0.2s ease;
+    }
+    .nav-logo:hover img { opacity: 0.75; }
 
     .nav-links {
       display: flex;
@@ -665,15 +669,12 @@
       flex-wrap: wrap;
     }
 
-    footer .logo {
-      font-family: var(--font-head);
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text);
+    footer .logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+      opacity: 0.7;
     }
-    footer .logo span { color: var(--accent2); }
 
     footer p {
       font-size: 0.75rem;
@@ -746,7 +747,9 @@
 
   <!-- ─── NAV ─────────────────────────────────────────────────── -->
   <nav id="navbar" role="navigation" aria-label="Main navigation">
-    <a class="nav-logo" href="#hero">YOUR<span>.</span>NAME</a>
+    <a class="nav-logo" href="#hero" aria-label="PhilmsbyJay — Home">
+      <img src="logo.svg" alt="PhilmsbyJay logo" />
+    </a>
     <ul class="nav-links" role="list">
       <li><a href="#longform">Long Form</a></li>
       <li><a href="#shortform">Short Form</a></li>
@@ -1037,7 +1040,7 @@
 
   <!-- ─── FOOTER ────────────────────────────────────────────────── -->
   <footer role="contentinfo">
-    <div class="logo">YOUR<span>.</span>NAME</div>
+    <div class="logo"><img src="logo.svg" alt="PhilmsbyJay" /></div>
     <p>© <span id="year"></span> — All Rights Reserved</p>
   </footer>
 
