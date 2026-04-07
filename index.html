@@ -16,9 +16,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #080808;
-      --bg-card:   #111111;
-      --bg-hover:  #181818;
+      --bg:        #03070f;
+      --bg-card:   #080e1a;
+      --bg-hover:  #0d1625;
       --border:    rgba(255,255,255,0.08);
       --text:      #f0f0f0;
       --muted:     rgba(240,240,240,0.45);
@@ -43,6 +43,35 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ─── GLOBAL GRID + GRADIENT BACKGROUND ─────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      /* Deep blue-black gradient with subtle depth shift */
+      background:
+        radial-gradient(ellipse 55% 45% at 0% 0%, rgba(29,78,216,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 45% at 100% 100%, rgba(29,78,216,0.18) 0%, transparent 70%),
+        linear-gradient(160deg, #03080f 0%, #020510 40%, #010208 100%);
+    }
+
+    /* Perspective grid lines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.055) 1px, transparent 1px);
+      background-size: 60px 60px;
+      /* Subtle fade: full at edges, lighter toward center */
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.15) 70%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.15) 70%, transparent 100%);
+      pointer-events: none;
+    }
+
     ::selection { background: var(--accent2); color: #000; }
 
     /* ─── SCROLLBAR ─────────────────────────────────────────────── */
@@ -60,7 +89,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 clamp(24px, 5vw, 80px);
-      background: rgba(8,8,8,0.85);
+      background: rgba(3,7,15,0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid transparent;
@@ -195,7 +224,7 @@
       height: 60vw;
       max-width: 800px;
       max-height: 800px;
-      background: radial-gradient(circle, rgba(200,184,154,0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(29,78,216,0.04) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -365,7 +394,7 @@
     }
 
     /* ─── LONG FORM GRID ─────────────────────────────────────────── */
-    #longform { background: var(--bg); }
+    #longform { background: transparent; }
 
     .video-grid-long {
       display: grid;
@@ -452,7 +481,7 @@
     }
 
     /* ─── SHORT FORM GRID ─────────────────────────────────────────── */
-    #shortform { background: #0b0b0b; }
+    #shortform { background: transparent; }
 
     .video-grid-short {
       display: grid;
@@ -498,7 +527,7 @@
 
     /* ─── ABOUT ─────────────────────────────────────────────────── */
     #about {
-      background: var(--bg);
+      background: transparent;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
@@ -571,7 +600,7 @@
 
     /* ─── CONTACT ───────────────────────────────────────────────── */
     #contact {
-      background: #0b0b0b;
+      background: transparent;
       text-align: center;
       padding: 120px clamp(24px, 5vw, 80px);
     }
