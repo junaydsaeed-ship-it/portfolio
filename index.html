@@ -90,16 +90,14 @@
       justify-content: space-between;
       padding: 0 clamp(24px, 5vw, 80px);
       background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
       border-bottom: 1px solid transparent;
-      transition: background 0.4s var(--ease), border-color 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
+      pointer-events: auto;
+      transition: opacity 0.5s var(--ease);
     }
+    /* Hide full nav bar when scrolled */
     nav.scrolled {
-      background: rgba(3,7,15,0.75);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom-color: var(--border);
+      opacity: 0;
+      pointer-events: none;
     }
 
     .nav-logo {
@@ -109,12 +107,12 @@
       cursor: pointer;
       margin-left: 24px;
       margin-top: 32px;
+      transition: opacity 0.5s var(--ease);
     }
     .nav-logo img {
       height: 64px;
       width: auto;
       display: block;
-      filter: brightness(1);
       transition: opacity 0.2s ease;
     }
     .nav-logo:hover img { opacity: 0.75; }
@@ -152,6 +150,62 @@
       transition: background 0.2s ease, transform 0.15s ease !important;
     }
     .nav-cta:hover { background: #fff !important; transform: translateY(-1px); }
+
+    /* ─── FLOATING PILL NAV (appears on scroll) ──────────────────── */
+    .floating-nav {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-12px);
+      z-index: 101;
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      background: rgba(8,14,26,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 6px 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s var(--ease) 0.25s, transform 0.45s var(--ease) 0.25s;
+    }
+    .floating-nav.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .floating-nav.hidden {
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+    .floating-nav a {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 13px;
+      border-radius: 100px;
+      transition: color 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+    .floating-nav a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+    }
+    .floating-nav .pill-cta {
+      color: var(--bg) !important;
+      background: var(--accent);
+      padding: 8px 20px;
+      font-weight: 600;
+    }
+    .floating-nav .pill-cta:hover {
+      background: #fff;
+      color: var(--bg) !important;
+    }
 
     /* hamburger */
     .hamburger {
@@ -403,136 +457,300 @@
       width: calc(100% - clamp(48px, 10vw, 160px));
     }
 
-    /* ─── LONG FORM GRID ─────────────────────────────────────────── */
-    #longform { background: transparent; }
-
-    .video-grid-long {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
-      gap: 24px;
+    /* ─── WHAT WE OPTIMISE FOR ──────────────────────────────────── */
+    #optimise {
+      background: transparent;
+      text-align: center;
+      padding: 100px clamp(24px, 5vw, 80px);
     }
 
-    .video-card {
-      position: relative;
-      background: var(--bg-card);
-      border-radius: var(--radius);
+    .optimise-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
       border: 1px solid var(--border);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.35s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
-      /* Fade-in on scroll */
+      padding: 7px 18px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+    .optimise-eyebrow svg { width: 13px; height: 13px; stroke: var(--muted); fill: none; }
+
+    .optimise-heading {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 64px;
+    }
+    .optimise-heading em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .optimise-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .optimise-grid { grid-template-columns: 1fr; }
+      .optimise-card.featured { order: -1; }
+    }
+
+    .optimise-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 48px 32px 40px;
+      text-align: center;
+      transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s var(--ease);
       opacity: 0;
       transform: translateY(28px);
     }
-    .video-card.visible {
+    .optimise-card.visible {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.35s ease, background 0.35s ease;
     }
-    .video-card:hover {
-      transform: translateY(-4px) scale(1.01);
-      border-color: rgba(255,255,255,0.15);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+    .optimise-card:hover {
+      border-color: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-4px);
     }
 
-    /* Prevent right-click / download on videos */
-    .video-wrap {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* 16:9 */
-      background: #0d0d0d;
+    /* Featured (Authority) card — centre, elevated */
+    .optimise-card.featured {
+      background: rgba(29,78,216,0.08);
+      border-color: rgba(29,78,216,0.3);
+      padding: 56px 32px 48px;
     }
-    .video-wrap iframe {
+    .optimise-card.featured:hover {
+      background: rgba(29,78,216,0.12);
+      border-color: rgba(29,78,216,0.45);
+    }
+
+    .optimise-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .optimise-card.featured .optimise-icon {
+      background: rgba(29,78,216,0.15);
+      border-color: rgba(29,78,216,0.3);
+    }
+    .optimise-icon svg {
+      width: 34px;
+      height: 34px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 1.3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.85;
+    }
+    .optimise-card.featured .optimise-icon svg {
+      stroke: #93b4f8;
+      opacity: 1;
+    }
+
+    .optimise-card-title {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .optimise-card.featured .optimise-card-title {
+      color: #fff;
+      font-size: 1.5rem;
+    }
+
+    .optimise-card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ─── OUR WORK SECTION ───────────────────────────────────────── */
+    #ourwork {
+      background: transparent;
+      text-align: center;
+    }
+
+    .ourwork-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 7px 18px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    .ourwork-heading {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 64px;
+    }
+    .ourwork-heading em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .ourwork-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .ourwork-grid { grid-template-columns: 1fr; }
+    }
+
+    .work-card {
+      position: relative;
+      height: 520px;
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .work-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .work-card-bg {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+      transition: transform 0.6s var(--ease);
     }
-    /* Transparent overlay blocks right-click on iframe content area */
-    .video-overlay {
+    .work-card:hover .work-card-bg {
+      transform: scale(1.04);
+    }
+
+    .work-card--branding .work-card-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 30% 40%, rgba(29,78,216,0.25) 0%, transparent 60%),
+        linear-gradient(145deg, #0e1a2e 0%, #05090f 60%, #080c14 100%);
+    }
+    .work-card--short .work-card-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 60%, rgba(100,60,180,0.2) 0%, transparent 60%),
+        linear-gradient(145deg, #100a1e 0%, #070509 60%, #0c0810 100%);
+    }
+
+    .work-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.35) 45%,
+        rgba(0,0,0,0.1) 100%
+      );
+      z-index: 1;
+    }
+
+    .work-card-content {
       position: absolute;
       inset: 0;
       z-index: 2;
-      cursor: default;
-      /* Only active on non-playing state — removed on click so controls work */
-      background: transparent;
-    }
-    .video-overlay.playing { pointer-events: none; }
-
-    .video-meta {
-      padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 36px 40px;
+      text-align: left;
     }
 
-    .video-category {
-      font-size: 0.65rem;
+    .work-card-label {
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 8px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 10px;
     }
 
-    .video-title {
+    .work-card-title {
       font-family: var(--font-head);
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      margin-bottom: 6px;
-      line-height: 1.3;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      color: #fff;
     }
 
-    .video-desc {
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.6;
+    .work-card-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
     }
 
-    /* ─── SHORT FORM GRID ─────────────────────────────────────────── */
-    #shortform { background: transparent; }
-
-    .video-grid-short {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
-      gap: 20px;
+    .work-card-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      max-width: 260px;
     }
 
-    .short-card {
-      position: relative;
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.35s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
-      /* Fade-in on scroll */
-      opacity: 0;
-      transform: translateY(28px);
+    .work-card-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 12px 26px;
+      border-radius: 100px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
-    .short-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
-    }
-    .short-card:hover {
-      transform: translateY(-4px) scale(1.01);
-      border-color: rgba(255,255,255,0.15);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
-    }
-
-    /* 9:16 portrait ratio for reels */
-    .short-card .video-wrap {
-      padding-top: 177.78%; /* 9:16 */
-    }
-
-    .short-card .video-meta {
-      padding: 16px 18px 20px;
-    }
-
-    .short-card .video-title {
-      font-size: 0.9rem;
+    .work-card:hover .work-card-btn {
+      background: rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.4);
     }
 
     /* ─── ABOUT ─────────────────────────────────────────────────── */
@@ -743,12 +961,18 @@
   <div class="cursor" id="cursor" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
+  <!-- ─── FLOATING PILL NAV ───────────────────────────────────── -->
+  <nav class="floating-nav" id="floatingNav" role="navigation" aria-label="Floating navigation">
+    <a href="#ourwork">Our Work</a>
+    <a href="#optimise">Values</a>
+    <a class="pill-cta" href="#contact">Let's Work</a>
+  </nav>
+
   <!-- ─── MOBILE MENU ──────────────────────────────────────────── -->
   <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
-    <a href="#longform" onclick="closeMobile()">Long Form</a>
-    <a href="#shortform" onclick="closeMobile()">Short Form</a>
-    <a href="#about" onclick="closeMobile()">About</a>
-    <a href="#contact" onclick="closeMobile()">Contact</a>
+    <a href="#ourwork" onclick="closeMobile()">Our Work</a>
+    <a href="#optimise" onclick="closeMobile()">Values</a>
+    <a href="#contact" onclick="closeMobile()">Let's Work</a>
   </div>
 
   <!-- ─── NAV ─────────────────────────────────────────────────── -->
@@ -757,9 +981,8 @@
       <img src="logo.svg" alt="PhilmsbyJay logo" />
     </a>
     <ul class="nav-links" role="list">
-      <li><a href="#longform">Long Form</a></li>
-      <li><a href="#shortform">Short Form</a></li>
-      <li><a href="#about">About</a></li>
+      <li><a href="#ourwork">Our Work</a></li>
+      <li><a href="#optimise">Values</a></li>
       <li><a class="nav-cta" href="#contact">Let's Work</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -779,7 +1002,7 @@
         without compromising your core values.
       </p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#longform">View My Work</a>
+        <a class="btn-primary" href="#ourwork">View My Work</a>
         <a class="btn-secondary" href="#contact">Get in Touch</a>
       </div>
     </div>
@@ -791,189 +1014,96 @@
 
   <div class="divider" role="separator"></div>
 
-  <!-- ─── LONG FORM ─────────────────────────────────────────────── -->
-  <section id="longform" aria-labelledby="longform-title">
-    <div class="section-header fade-up">
-      <div>
-        <p class="section-label">Section 01</p>
-        <h2 class="section-title" id="longform-title">Long Form</h2>
-      </div>
-      <p class="section-desc">
-        Documentaries, brand films, commercial campaigns, and full-length productions.
-      </p>
+  <!-- ─── WHAT WE OPTIMISE FOR ─────────────────────────────────── -->
+  <section id="optimise" aria-labelledby="optimise-title">
+    <div class="optimise-eyebrow fade-up">
+      <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/></svg>
+      Our Focus
     </div>
+    <h2 class="optimise-heading fade-up" id="optimise-title">
+      What We <em>Optimise</em> For
+    </h2>
 
-    <!--
-      ═══════════════════════════════════════════════════════════════
-      HOW TO ADD A LONG-FORM VIDEO:
-      1. Upload your video to YouTube
-      2. Copy the video ID from the URL (the part after ?v=)
-         e.g. youtube.com/watch?v=dQw4w9WgXcQ → ID is dQw4w9WgXcQ
-      3. Duplicate one of the .video-card blocks below
-      4. Replace DATA-VIDEO-ID with your YouTube video ID
-      5. Update the title, category, and description
-      ═══════════════════════════════════════════════════════════════
-    -->
-    <div class="video-grid-long" id="longformGrid">
+    <!-- Order: Clarity | Authority (featured) | Trust -->
+    <div class="optimise-grid">
 
-      <!-- Card 1 -->
-      <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Brand Film — Campaign 01">
-        <div class="video-wrap">
-          <iframe
-            src="about:blank"
-            title="Brand Film — Campaign 01"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+      <!-- Clarity -->
+      <article class="optimise-card">
+        <div class="optimise-icon">
+          <!-- Lens / target icon -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21"/><line x1="3" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21" y2="12"/></svg>
         </div>
-        <div class="video-meta">
-          <p class="video-category">Brand Film</p>
-          <h3 class="video-title">Campaign Title Here</h3>
-          <p class="video-desc">A brief description of the project, client, or story behind the piece.</p>
-        </div>
+        <h3 class="optimise-card-title">Clarity</h3>
+        <p class="optimise-card-desc">We get clear on your positioning. Truly understanding what you stand for, who it's for, and why it matters — so every piece of content has a purpose.</p>
       </article>
 
-      <!-- Card 2 -->
-      <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Documentary — Short Doc 01">
-        <div class="video-wrap">
-          <iframe
-            src="about:blank"
-            title="Short Documentary"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+      <!-- Authority — featured, centre -->
+      <article class="optimise-card featured">
+        <div class="optimise-icon">
+          <!-- Crown icon -->
+          <svg viewBox="0 0 24 24"><path d="M2 17 5 7l5 5 4-8 4 8 5-5-3 10H2Z"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
         </div>
-        <div class="video-meta">
-          <p class="video-category">Documentary</p>
-          <h3 class="video-title">Documentary Title Here</h3>
-          <p class="video-desc">A brief description of the project, client, or story behind the piece.</p>
-        </div>
+        <h3 class="optimise-card-title">Authority</h3>
+        <p class="optimise-card-desc">The outcome of clarity and trust, reinforced over time. When your thinking is recognised and relied on, you stop competing for attention and become the reference point.</p>
       </article>
 
-      <!-- Card 3 -->
-      <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Commercial — Product Spot">
-        <div class="video-wrap">
-          <iframe
-            src="about:blank"
-            title="Commercial Spot"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+      <!-- Trust -->
+      <article class="optimise-card">
+        <div class="optimise-icon">
+          <!-- Shield check icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><polyline points="9 12 11 14 15 10"/></svg>
         </div>
-        <div class="video-meta">
-          <p class="video-category">Commercial</p>
-          <h3 class="video-title">Commercial Title Here</h3>
-          <p class="video-desc">A brief description of the project, client, or story behind the piece.</p>
-        </div>
+        <h3 class="optimise-card-title">Trust</h3>
+        <p class="optimise-card-desc">The foundation behind every conversion. We create a clear, reliable signal your audience can come back to, so that trust compounds over time.</p>
       </article>
 
-    </div><!-- /video-grid-long -->
+    </div>
   </section>
 
   <div class="divider" role="separator"></div>
 
-  <!-- ─── SHORT FORM ────────────────────────────────────────────── -->
-  <section id="shortform" aria-labelledby="shortform-title">
-    <div class="section-header fade-up">
-      <div>
-        <p class="section-label">Section 02</p>
-        <h2 class="section-title" id="shortform-title">Short Form</h2>
-      </div>
-      <p class="section-desc">
-        Reels, TikToks, social-first cuts, and vertical content built for impact.
-      </p>
+  <!-- ─── OUR WORK ──────────────────────────────────────────────── -->
+  <section id="ourwork" aria-labelledby="ourwork-title">
+    <div class="ourwork-eyebrow fade-up">Portfolio</div>
+    <h2 class="ourwork-heading fade-up" id="ourwork-title">
+      Our <em>Work</em>
+    </h2>
+
+    <div class="ourwork-grid">
+
+      <!-- Personal Branding card -->
+      <a href="personal-branding.html" class="work-card work-card--branding" aria-label="View Personal Branding work">
+        <div class="work-card-bg"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <div>
+            <p class="work-card-label">Brand Films &amp; Storytelling</p>
+            <h3 class="work-card-title">Personal<br>Branding</h3>
+          </div>
+          <div class="work-card-bottom">
+            <p class="work-card-desc">We help you craft a digital identity that truly reflects who you are. From storytelling to visuals, we build trust, connection, and a lasting impression.</p>
+            <span class="work-card-btn">Explore</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Short Form card -->
+      <a href="short-form.html" class="work-card work-card--short" aria-label="View Short Form work">
+        <div class="work-card-bg"></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <div>
+            <p class="work-card-label">Reels &amp; Social Content</p>
+            <h3 class="work-card-title">Short<br>Form</h3>
+          </div>
+          <div class="work-card-bottom">
+            <p class="work-card-desc">Quick, impactful and designed for today's fast-paced digital world. We create engaging short form content that keeps your audience coming back for more.</p>
+            <span class="work-card-btn">Explore</span>
+          </div>
+        </div>
+      </a>
+
     </div>
-
-    <!--
-      ═══════════════════════════════════════════════════════════════
-      HOW TO ADD A SHORT-FORM / REEL VIDEO:
-      Same process as long form — just use the 9:16 portrait card format below.
-      For Instagram Reels hosted on YouTube Shorts, use the Shorts URL:
-        youtube.com/shorts/VIDEO_ID
-      The VIDEO_ID still works the same way.
-      ═══════════════════════════════════════════════════════════════
-    -->
-    <div class="video-grid-short" id="shortformGrid">
-
-      <!-- Short Card 1 -->
-      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 1">
-        <div class="video-wrap">
-          <iframe
-            src="about:blank"
-            title="Short Form Video 1"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
-        </div>
-        <div class="video-meta">
-          <p class="video-category">Reel</p>
-          <h3 class="video-title">Short Form Title</h3>
-        </div>
-      </article>
-
-      <!-- Short Card 2 -->
-      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 2">
-        <div class="video-wrap">
-          <iframe
-            src="about:blank"
-            title="Short Form Video 2"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
-        </div>
-        <div class="video-meta">
-          <p class="video-category">TikTok</p>
-          <h3 class="video-title">Short Form Title</h3>
-        </div>
-      </article>
-
-      <!-- Short Card 3 -->
-      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 3">
-        <div class="video-wrap">
-          <iframe
-            src="about:blank"
-            title="Short Form Video 3"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
-        </div>
-        <div class="video-meta">
-          <p class="video-category">Reel</p>
-          <h3 class="video-title">Short Form Title</h3>
-        </div>
-      </article>
-
-      <!-- Short Card 4 -->
-      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 4">
-        <div class="video-wrap">
-          <iframe
-            src="about:blank"
-            title="Short Form Video 4"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
-        </div>
-        <div class="video-meta">
-          <p class="video-category">Social</p>
-          <h3 class="video-title">Short Form Title</h3>
-        </div>
-      </article>
-
-    </div><!-- /video-grid-short -->
   </section>
 
   <div class="divider" role="separator"></div>
@@ -1094,10 +1224,19 @@
       });
     }
 
-    // ── Navbar scroll border ──────────────────────────────────────
-    const navbar = document.getElementById('navbar');
+    // ── Navbar hide on scroll + floating pill ─────────────────────
+    const navbar      = document.getElementById('navbar');
+    const floatingNav = document.getElementById('floatingNav');
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
+      const scrolled = window.scrollY > 80;
+      navbar.classList.toggle('scrolled', scrolled);
+      if (scrolled) {
+        floatingNav.classList.remove('hidden');
+        floatingNav.classList.add('visible');
+      } else {
+        floatingNav.classList.add('hidden');
+        floatingNav.classList.remove('visible');
+      }
     }, { passive: true });
 
     // ── Mobile menu ───────────────────────────────────────────────
@@ -1138,7 +1277,7 @@
       });
     }, observerOpts);
 
-    document.querySelectorAll('.video-card, .short-card').forEach(c => cardObserver.observe(c));
+    document.querySelectorAll('.work-card, .optimise-card').forEach(c => cardObserver.observe(c));
 
     const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1151,50 +1290,9 @@
 
     document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-    // ── Lazy-load YouTube iframes ─────────────────────────────────
-    // Iframes start with src="about:blank" to avoid loading on page load.
-    // They get the real YouTube URL only when the user clicks the card.
-    // This also prevents autoplay and improves performance.
-
-    function loadVideo(card) {
-      const videoId = card.dataset.videoId;
-      if (!videoId) return;
-      const iframe = card.querySelector('iframe');
-      if (!iframe) return;
-
-      // Only load once
-      if (iframe.src && iframe.src !== 'about:blank' && !iframe.src.includes('about:blank')) return;
-
-      // Build embed URL — disable related videos, modest branding, no info
-      const params = new URLSearchParams({
-        autoplay: '1',
-        modestbranding: '1',
-        rel: '0',
-        showinfo: '0',
-        color: 'white',
-      });
-      iframe.src = `https://www.youtube.com/embed/${videoId}?${params}`;
-
-      // Dismiss the overlay so controls work
-      const overlay = card.querySelector('.video-overlay');
-      if (overlay) overlay.classList.add('playing');
-    }
-
-    // Click to play — activates the iframe
-    document.querySelectorAll('.video-card, .short-card').forEach(card => {
-      card.addEventListener('click', () => loadVideo(card));
-    });
-
-    // ── Disable right-click on the whole page for good measure ────
-    document.addEventListener('contextmenu', e => {
-      if (e.target.closest('iframe') || e.target.closest('.video-wrap')) {
-        e.preventDefault();
-      }
-    });
-
     // ── Respect prefers-reduced-motion ────────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.video-card, .short-card, .fade-up').forEach(el => {
+      document.querySelectorAll('.work-card, .fade-up').forEach(el => {
         el.style.transition = 'none';
         el.classList.add('visible');
       });

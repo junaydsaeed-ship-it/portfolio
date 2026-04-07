@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Short Form — PhilmsbyJay</title>
+  <meta name="description" content="PhilmsbyJay — Short Form. Reels, TikToks, and social-first vertical content built for impact." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #03070f;
+      --bg-card:   #080e1a;
+      --bg-hover:  #0d1625;
+      --border:    rgba(255,255,255,0.08);
+      --text:      #f0f0f0;
+      --muted:     rgba(240,240,240,0.45);
+      --accent:    #e8e0d0;
+      --accent2:   #c8b89a;
+      --font-head: 'Archivo', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --radius:    12px;
+      --nav-h:     68px;
+      --ease:      cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 55% 45% at 0% 0%, rgba(29,78,216,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 45% at 100% 100%, rgba(29,78,216,0.18) 0%, transparent 70%),
+        linear-gradient(160deg, #03080f 0%, #020510 40%, #010208 100%);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.055) 1px, transparent 1px);
+      background-size: 60px 60px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.15) 70%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.15) 70%, transparent 100%);
+      pointer-events: none;
+    }
+
+    ::selection { background: var(--accent2); color: #000; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+    /* ─── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 5vw, 80px);
+      background: transparent;
+      transition: opacity 0.5s var(--ease);
+    }
+    nav.scrolled { opacity: 0; pointer-events: none; }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      margin-left: 24px;
+      margin-top: 32px;
+    }
+    .nav-logo img { height: 64px; width: auto; display: block; transition: opacity 0.2s ease; }
+    .nav-logo:hover img { opacity: 0.75; }
+
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg) !important;
+      background: var(--accent);
+      padding: 9px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease !important;
+    }
+    .nav-cta:hover { background: #fff !important; transform: translateY(-1px); }
+
+    .floating-nav {
+      position: fixed;
+      top: 24px; left: 50%;
+      transform: translateX(-50%) translateY(-12px);
+      z-index: 101;
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      background: rgba(8,14,26,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 6px 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s var(--ease) 0.25s, transform 0.45s var(--ease) 0.25s;
+    }
+    .floating-nav.visible { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .floating-nav.hidden { transition: opacity 0.3s var(--ease), transform 0.3s var(--ease); }
+    .floating-nav a {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 13px;
+      border-radius: 100px;
+      transition: color 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+    .floating-nav a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+    .floating-nav .pill-cta {
+      color: var(--bg) !important;
+      background: var(--accent);
+      padding: 8px 20px;
+      font-weight: 600;
+    }
+    .floating-nav .pill-cta:hover { background: #fff; color: var(--bg) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: all 0.3s var(--ease); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(24px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s ease;
+    }
+    .mobile-menu a:hover { color: var(--accent2); }
+
+    /* ─── PAGE HERO ───────────────────────────────────────────────── */
+    .page-hero {
+      min-height: 55svh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: calc(var(--nav-h) + 60px) clamp(24px, 5vw, 80px) 80px;
+    }
+
+    .page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 48px;
+      transition: color 0.2s ease;
+    }
+    .page-back:hover { color: var(--text); }
+    .page-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
+
+    .page-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .page-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .page-sub {
+      font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ─── SECTION ─────────────────────────────────────────────────── */
+    section { padding: 80px clamp(24px, 5vw, 80px); }
+
+    .divider { height: 1px; background: var(--border); margin: 0 clamp(24px, 5vw, 80px); }
+
+    /* ─── SHORT FORM GRID (9:16 portrait) ─────────────────────────── */
+    .video-grid-short {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+      gap: 20px;
+    }
+
+    .short-card {
+      position: relative;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.35s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    .short-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .short-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 177.78%; /* 9:16 portrait */
+      background: #0d0d0d;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      cursor: default;
+      background: transparent;
+    }
+    .video-overlay.playing { pointer-events: none; }
+
+    .video-meta { padding: 16px 18px 20px; }
+
+    .video-category {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+
+    .video-title {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    /* ─── CONTACT ─────────────────────────────────────────────────── */
+    #contact {
+      text-align: center;
+      padding: 100px clamp(24px, 5vw, 80px);
+    }
+    .contact-inner { max-width: 580px; margin: 0 auto; }
+    #contact .eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 20px;
+    }
+    #contact h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    #contact p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 48px; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .contact-link:hover { color: var(--text); }
+    .contact-link svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+    /* ─── FOOTER ──────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px clamp(24px, 5vw, 80px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    footer .logo img { height: 50px; width: auto; display: block; opacity: 0.7; }
+    footer p { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      footer { justify-content: center; text-align: center; }
+    }
+
+    /* ─── CUSTOM CURSOR ───────────────────────────────────────────── */
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+      .cursor {
+        position: fixed; width: 10px; height: 10px;
+        background: var(--accent); border-radius: 50%;
+        pointer-events: none; z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.25s var(--ease), height 0.25s var(--ease), background 0.2s ease;
+        will-change: transform;
+      }
+      .cursor-ring {
+        position: fixed; width: 40px; height: 40px;
+        border: 1px solid rgba(232,224,208,0.3); border-radius: 50%;
+        pointer-events: none; z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s var(--ease), height 0.4s var(--ease), border-color 0.3s ease;
+        will-change: transform;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <nav class="floating-nav" id="floatingNav" role="navigation" aria-label="Floating navigation">
+    <a href="index.html#ourwork">Our Work</a>
+    <a href="index.html#optimise">Values</a>
+    <a class="pill-cta" href="index.html#contact">Let's Work</a>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+    <a href="index.html" onclick="closeMobile()">Home</a>
+    <a href="index.html#ourwork" onclick="closeMobile()">Our Work</a>
+    <a href="index.html#optimise" onclick="closeMobile()">Values</a>
+    <a href="index.html#contact" onclick="closeMobile()">Let's Work</a>
+  </div>
+
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="index.html" aria-label="PhilmsbyJay — Home">
+      <img src="logo.svg" alt="PhilmsbyJay logo" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html#ourwork">Our Work</a></li>
+      <li><a href="index.html#optimise">Values</a></li>
+      <li><a class="nav-cta" href="index.html#contact">Let's Work</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ─── PAGE HERO ─────────────────────────────────────────────── -->
+  <div class="page-hero">
+    <a class="page-back fade-up" href="index.html">
+      <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+      Back to Home
+    </a>
+    <p class="page-eyebrow fade-up">Portfolio</p>
+    <h1 class="page-title fade-up">Short<br><em>Form</em></h1>
+    <p class="page-sub fade-up">Quick, impactful and designed for today's fast-paced digital world. We create engaging short form content that keeps your audience coming back for more.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ─── VIDEO GRID ─────────────────────────────────────────────── -->
+  <section aria-label="Short Form Videos">
+    <!--
+      ═══════════════════════════════════════════════════════════════
+      HOW TO ADD A SHORT-FORM / REEL VIDEO:
+      1. Upload your video to YouTube or YouTube Shorts
+      2. Copy the video ID from the URL
+      3. Duplicate one of the .short-card blocks below
+      4. Replace DATA-VIDEO-ID with your YouTube video ID
+      5. Update the title and category
+      ═══════════════════════════════════════════════════════════════
+    -->
+    <div class="video-grid-short" id="shortformGrid">
+
+      <!-- Card 1 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 1">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">Reel</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 2">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 2"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">TikTok</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 3">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 3"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">Reel</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 4">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 4"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">Social</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 5">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 5"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">Reel</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 6">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 6"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">TikTok</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 7">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 7"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">Social</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="short-card" data-video-id="dQw4w9WgXcQ" aria-label="Short Form Video 8">
+        <div class="video-wrap">
+          <iframe src="about:blank" title="Short Form Video 8"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <div class="video-meta">
+          <p class="video-category">Reel</p>
+          <h3 class="video-title">Short Form Title</h3>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ─── CONTACT ────────────────────────────────────────────────── -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="contact-inner fade-up">
+      <p class="eyebrow">Let's Create Together</p>
+      <h2 id="contact-title">Ready to go<br>viral?</h2>
+      <p>
+        Whether it's a reel strategy, a TikTok series, or social-first content —
+        let's talk about creating content that stops the scroll.
+      </p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:hello@yourname.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+          hello@yourname.com
+        </a>
+        <a class="contact-link" href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          @yourhandle
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="logo"><img src="logo.svg" alt="PhilmsbyJay" /></div>
+    <p>© <span id="year"></span> — All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    let cursorX = 0, cursorY = 0, ringX = 0, ringY = 0;
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.addEventListener('mousemove', e => {
+        cursorX = e.clientX; cursorY = e.clientY;
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top  = cursorY + 'px';
+      });
+      function animateRing() {
+        ringX += (cursorX - ringX) * 0.12;
+        ringY += (cursorY - ringY) * 0.12;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top  = ringY + 'px';
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+      document.querySelectorAll('a, button, .short-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '6px'; cursor.style.height = '6px';
+          cursorRing.style.width = '56px'; cursorRing.style.height = '56px';
+          cursorRing.style.borderColor = 'rgba(232,224,208,0.5)';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '10px'; cursor.style.height = '10px';
+          cursorRing.style.width = '40px'; cursorRing.style.height = '40px';
+          cursorRing.style.borderColor = 'rgba(232,224,208,0.3)';
+        });
+      });
+    }
+
+    const navbar = document.getElementById('navbar');
+    const floatingNav = document.getElementById('floatingNav');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY > 80;
+      navbar.classList.toggle('scrolled', scrolled);
+      if (scrolled) {
+        floatingNav.classList.remove('hidden');
+        floatingNav.classList.add('visible');
+      } else {
+        floatingNav.classList.add('hidden');
+        floatingNav.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    function closeMobile() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    mobileMenu.addEventListener('click', e => { if (e.target === mobileMenu) closeMobile(); });
+
+    const observerOpts = { threshold: 0.1, rootMargin: '0px 0px -60px 0px' };
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(entry.target.parentElement.children).indexOf(entry.target);
+          setTimeout(() => entry.target.classList.add('visible'), idx * 80);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOpts);
+    document.querySelectorAll('.short-card').forEach(c => cardObserver.observe(c));
+
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); fadeObserver.unobserve(entry.target); }
+      });
+    }, observerOpts);
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+    function loadVideo(card) {
+      const videoId = card.dataset.videoId;
+      if (!videoId) return;
+      const iframe = card.querySelector('iframe');
+      if (!iframe || (iframe.src && !iframe.src.includes('about:blank'))) return;
+      const params = new URLSearchParams({ autoplay: '1', modestbranding: '1', rel: '0', showinfo: '0', color: 'white' });
+      iframe.src = `https://www.youtube.com/embed/${videoId}?${params}`;
+      const overlay = card.querySelector('.video-overlay');
+      if (overlay) overlay.classList.add('playing');
+    }
+    document.querySelectorAll('.short-card').forEach(card => card.addEventListener('click', () => loadVideo(card)));
+
+    document.addEventListener('contextmenu', e => {
+      if (e.target.closest('iframe') || e.target.closest('.video-wrap')) e.preventDefault();
+    });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.short-card, .fade-up').forEach(el => {
+        el.style.transition = 'none';
+        el.classList.add('visible');
+      });
+    }
+  </script>
+
+</body>
+</html>
