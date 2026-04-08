@@ -666,7 +666,7 @@
       gap: 20px;
       max-width: 1300px;
       margin: 0 auto;
-      align-items: start;
+      align-items: stretch;
     }
 
     @media (max-width: 768px) {
@@ -684,8 +684,8 @@
       transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
     }
 
-    /* 16:9 for branding, 9:16 for short form */
-    .work-card--branding { aspect-ratio: 16 / 9; }
+    /* Branding stretches to match short form height; short form is portrait */
+    .work-card--branding { min-height: 300px; }
     .work-card--short    { aspect-ratio: 9 / 16; }
     .work-card.visible {
       opacity: 1;
