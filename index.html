@@ -121,11 +121,10 @@
       text-decoration: none;
       cursor: pointer;
       margin-left: 24px;
-      margin-top: 32px;
       transition: opacity 0.5s var(--ease);
     }
     .nav-logo img {
-      height: 64px;
+      height: 52px;
       width: auto;
       display: block;
       transition: opacity 0.2s ease;
@@ -184,12 +183,12 @@
       display: flex;
       align-items: center;
       gap: 0;
-      background: rgba(8,14,26,0.82);
+      background: rgba(8,14,26,0.85);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 100px;
-      padding: 6px 8px;
+      padding: 5px 5px 5px 20px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.45s var(--ease) 0.25s, transform 0.45s var(--ease) 0.25s;
@@ -206,33 +205,29 @@
       font-family: var(--font-body);
       font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
-      padding: 8px 11px;
+      padding: 8px 14px;
       border-radius: 100px;
-      transition: color 0.2s ease, background 0.2s ease;
+      transition: color 0.2s ease;
       white-space: nowrap;
     }
-    .floating-nav a:hover {
-      color: var(--text);
-      background: rgba(255,255,255,0.07);
-    }
-    .floating-nav .pill-divider {
-      width: 1px;
-      height: 20px;
-      background: rgba(255,255,255,0.12);
-      margin: 0 8px;
-      flex-shrink: 0;
-    }
+    .floating-nav a:hover { color: var(--text); }
     .floating-nav .pill-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       color: #fff !important;
       background: linear-gradient(160deg, #6d28d9 0%, #4c1d95 50%, #3b0f7a 100%);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 18px rgba(109,40,217,0.35);
-      padding: 8px 20px;
+      padding: 10px 22px;
       font-weight: 600;
-      border-radius: 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      border-radius: 100px;
+      margin-left: 16px;
     }
     .floating-nav .pill-cta:hover {
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 6px 28px rgba(109,40,217,0.55) !important;
@@ -1310,8 +1305,10 @@
     <a href="#optimise">Values</a>
     <a href="#ourwork">Portfolio</a>
     <a href="#about">About</a>
-    <div class="pill-divider"></div>
-    <a class="pill-cta" href="#contact">Contact Us</a>
+    <a class="pill-cta" href="#contact">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+      Contact
+    </a>
   </nav>
 
   <!-- ─── MOBILE MENU ──────────────────────────────────────────── -->
