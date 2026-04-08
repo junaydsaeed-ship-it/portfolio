@@ -1332,8 +1332,8 @@
     /* ─── ANIMATIONS ─────────────────────────────────────────────── */
     .fade-up {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      transform: translateY(32px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
     }
     .fade-up.visible {
       opacity: 1;
@@ -1444,8 +1444,8 @@
   </section>
 
   <!-- ─── RECENT WORK ──────────────────────────────────────────────── -->
-  <section id="recentwork" aria-label="Recent work">
-    <p class="recent-work-label fade-up">Recent <em>Work</em></p>
+  <section id="recentwork" class="fade-up" aria-label="Recent work">
+    <p class="recent-work-label">Recent <em>Work</em></p>
     <div class="recent-work-perspective">
       <!--
         ════════════════════════════════════════════════════
@@ -1501,12 +1501,12 @@
   <div class="divider" role="separator"></div>
 
   <!-- ─── OUR MISSION ──────────────────────────────────────────── -->
-  <section id="mission" aria-labelledby="mission-title">
-    <div class="mission-left fade-up">
+  <section id="mission" class="fade-up" aria-labelledby="mission-title">
+    <div class="mission-left">
       <h2 class="mission-heading" id="mission-title">Our<br>Mission</h2>
       <a class="btn-primary" href="#contact">Let's Work</a>
     </div>
-    <div class="mission-quote fade-up">
+    <div class="mission-quote">
       <span class="mission-quote-mark">"</span>
       <p>Our mission is quite simple: <strong>We create content that builds authority and trust.</strong> By crafting stories that continuously solve problems for your audience and truly showcasing the impact you have on others. We ensure every detail is aligned with your core values — helping you build a genuine connection with your audience.</p>
     </div>
@@ -1515,12 +1515,12 @@
   <div class="divider" role="separator"></div>
 
   <!-- ─── WHAT WE OPTIMISE FOR ─────────────────────────────────── -->
-  <section id="optimise" aria-labelledby="optimise-title">
-    <div class="optimise-eyebrow fade-up">
+  <section id="optimise" class="fade-up" aria-labelledby="optimise-title">
+    <div class="optimise-eyebrow">
       <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/></svg>
       Our Focus
     </div>
-    <h2 class="optimise-heading fade-up" id="optimise-title">
+    <h2 class="optimise-heading" id="optimise-title">
       What We <em>Optimise</em> For
     </h2>
 
@@ -1559,9 +1559,9 @@
   <div class="divider" role="separator"></div>
 
   <!-- ─── OUR WORK ──────────────────────────────────────────────── -->
-  <section id="ourwork" aria-labelledby="ourwork-title">
-    <div class="ourwork-eyebrow fade-up">Portfolio</div>
-    <h2 class="ourwork-heading fade-up" id="ourwork-title">
+  <section id="ourwork" class="fade-up" aria-labelledby="ourwork-title">
+    <div class="ourwork-eyebrow">Portfolio</div>
+    <h2 class="ourwork-heading" id="ourwork-title">
       Our <em>Work</em>
     </h2>
 
@@ -1595,7 +1595,7 @@
       </a>
 
       <!-- CTA card -->
-      <div class="work-cta-card fade-up">
+      <div class="work-cta-card">
         <p>Got a project<br><em>in mind?</em></p>
         <a class="btn-primary" href="#contact">Start a Project</a>
       </div>
@@ -1624,8 +1624,8 @@
   <div class="divider" role="separator"></div>
 
   <!-- ─── ABOUT ─────────────────────────────────────────────────── -->
-  <section id="about" aria-labelledby="about-title">
-    <div class="about-text fade-up">
+  <section id="about" class="fade-up" aria-labelledby="about-title">
+    <div class="about-text">
       <p class="eyebrow">A Quick Introduction</p>
       <h2 id="about-title">
         Hi, I'm Jay.
@@ -1648,7 +1648,7 @@
       Square or 4:5 ratio works best (e.g. about.jpg).
       ════════════════════════════════════════════════════
     -->
-    <div class="about-photo fade-up">
+    <div class="about-photo">
       <img src="about.jpg" alt="Jay — Creative Director & Videographer" />
     </div>
   </section>
@@ -1656,8 +1656,8 @@
   <div class="divider" role="separator"></div>
 
   <!-- ─── CONTACT ───────────────────────────────────────────────── -->
-  <section id="contact" aria-labelledby="contact-title">
-    <div class="contact-inner fade-up">
+  <section id="contact" class="fade-up" aria-labelledby="contact-title">
+    <div class="contact-inner">
       <p class="eyebrow">Let's Create Together</p>
       <h2 id="contact-title">Have a project<br>in mind?</h2>
       <p>
@@ -1771,7 +1771,7 @@
     });
 
     // ── Intersection Observer (fade-in on scroll) ─────────────────
-    const observerOpts = { threshold: 0.1, rootMargin: '0px 0px -60px 0px' };
+    const observerOpts = { threshold: 0.08, rootMargin: '0px 0px -40px 0px' };
 
     const cardObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
