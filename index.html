@@ -4,7 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PhilmsbyJay — Creative Director & Videographer</title>
-  <meta name="description" content="PhilmsbyJay — Creative Director & Videographer. Long form and short form video portfolio." />
+  <meta name="description" content="PhilmsbyJay — London-based creative director and videographer specialising in personal branding films and short-form social content. We build trust, authority, and identity through cinematic visuals." />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="PhilmsbyJay — Creative Director & Videographer" />
+  <meta property="og:description" content="London-based creative director and videographer. Personal branding films and short-form content that build authority and drive real impact." />
+  <meta property="og:url"         content="https://philmsbyjay.com/" />
+  <meta property="og:image"       content="https://philmsbyjay.com/og-image.jpg" />
+  <meta property="og:site_name"   content="PhilmsbyJay" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="PhilmsbyJay — Creative Director & Videographer" />
+  <meta name="twitter:description" content="London-based creative director and videographer. Personal branding films and short-form content that build authority and drive real impact." />
+  <meta name="twitter:image"       content="https://philmsbyjay.com/og-image.jpg" />
 
   <!-- Fonts: Archivo (headings) + Space Grotesk (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -792,38 +806,32 @@
       margin-bottom: 16px;
     }
 
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+    .about-photo {
+      position: relative;
+      border-radius: 20px;
       overflow: hidden;
-    }
-
-    .stat-block {
+      border: 1px solid rgba(255,255,255,0.08);
+      /* Aspect ratio: adjust to match your photo's natural proportions */
+      aspect-ratio: 4 / 5;
       background: var(--bg-card);
-      padding: 36px 32px;
-      text-align: center;
     }
 
-    .stat-num {
-      font-family: var(--font-head);
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      font-weight: 900;
-      color: var(--text);
-      letter-spacing: -0.03em;
-      line-height: 1;
-      margin-bottom: 8px;
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
     }
 
-    .stat-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
+    /* Subtle bottom gradient so the section below feels connected */
+    .about-photo::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to top, rgba(3,7,15,0.55) 0%, transparent 100%);
+      pointer-events: none;
     }
 
     /* ─── CONTACT ───────────────────────────────────────────────── */
@@ -1443,23 +1451,15 @@
         a director's eye and an editor's precision to every frame.
       </p>
     </div>
-    <div class="about-stats fade-up">
-      <div class="stat-block">
-        <div class="stat-num">5+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-num">80+</div>
-        <div class="stat-label">Projects Completed</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-num">30+</div>
-        <div class="stat-label">Brands Worked With</div>
-      </div>
-      <div class="stat-block">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Frames of Passion</div>
-      </div>
+    <!--
+      ════════════════════════════════════════════════════
+      ABOUT PHOTO — replace src with the path to your image.
+      Recommended: a portrait or behind-the-scenes shot.
+      Square or 4:5 ratio works best (e.g. about.jpg).
+      ════════════════════════════════════════════════════
+    -->
+    <div class="about-photo fade-up">
+      <img src="about.jpg" alt="Jay — Creative Director & Videographer" />
     </div>
   </section>
 
