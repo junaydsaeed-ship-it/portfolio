@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PhilmsbyJay — Creative Director & Videographer</title>
+  <title>PhilmsbyJay — Creative Direction & Videography</title>
   <link rel="icon" type="image/svg+xml" href="logo.svg" />
   <meta name="description" content="PhilmsbyJay — London-based creative director and videographer specialising in personal branding films and short-form social content. We build trust, authority, and identity through cinematic visuals." />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
-  <meta property="og:title"       content="PhilmsbyJay — Creative Director & Videographer" />
+  <meta property="og:title"       content="PhilmsbyJay — Creative Direction & Videography" />
   <meta property="og:description" content="London-based creative director and videographer. Personal branding films and short-form content that build authority and drive real impact." />
   <meta property="og:url"         content="https://philmsbyjay.com/" />
   <meta property="og:image"       content="https://philmsbyjay.com/og-image.jpg" />
@@ -17,7 +17,7 @@
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="PhilmsbyJay — Creative Director & Videographer" />
+  <meta name="twitter:title"       content="PhilmsbyJay — Creative Direction & Videography" />
   <meta name="twitter:description" content="London-based creative director and videographer. Personal branding films and short-form content that build authority and drive real impact." />
   <meta name="twitter:image"       content="https://philmsbyjay.com/og-image.jpg" />
 
@@ -185,13 +185,13 @@
       z-index: 101;
       display: flex;
       align-items: center;
-      gap: 0;
+      width: max-content;
       background: rgba(8,14,26,0.85);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 100px;
-      padding: 5px 5px 5px 20px;
+      padding: 5px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.45s var(--ease) 0.25s, transform 0.45s var(--ease) 0.25s;
@@ -204,6 +204,12 @@
     .floating-nav.hidden {
       transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
     }
+    .pill-links {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
     .floating-nav a {
       font-family: var(--font-body);
       font-size: 0.75rem;
@@ -212,16 +218,13 @@
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 8px 16px;
       border-radius: 100px;
       transition: color 0.2s ease;
       white-space: nowrap;
     }
     .floating-nav a:hover { color: var(--text); }
     .floating-nav .pill-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       color: #fff !important;
       background: linear-gradient(160deg, #6d28d9 0%, #4c1d95 50%, #3b0f7a 100%);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 18px rgba(109,40,217,0.35);
@@ -230,7 +233,7 @@
       font-size: 0.75rem;
       letter-spacing: 0.08em;
       border-radius: 100px;
-      margin-left: 16px;
+      margin-left: 8px;
     }
     .floating-nav .pill-cta:hover {
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 6px 28px rgba(109,40,217,0.55) !important;
@@ -1305,13 +1308,12 @@
 
   <!-- ─── FLOATING PILL NAV ───────────────────────────────────── -->
   <nav class="floating-nav" id="floatingNav" role="navigation" aria-label="Floating navigation">
-    <a href="#optimise">Values</a>
-    <a href="#ourwork">Portfolio</a>
-    <a href="#about">About</a>
-    <a class="pill-cta" href="#contact">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-      Contact
-    </a>
+    <div class="pill-links">
+      <a href="#optimise">Values</a>
+      <a href="#ourwork">Portfolio</a>
+      <a href="#about">About</a>
+    </div>
+    <a class="pill-cta" href="#contact">Contact Us</a>
   </nav>
 
   <!-- ─── MOBILE MENU ──────────────────────────────────────────── -->
@@ -1343,7 +1345,7 @@
   <!-- ─── HERO ─────────────────────────────────────────────────── -->
   <section id="hero" aria-label="Hero">
     <div class="hero-inner">
-      <div class="hero-eyebrow">Creative Director &amp; Videographer</div>
+      <div class="hero-eyebrow">Creative Direction &amp; Videography</div>
       <h1 class="hero-title">
         Visuals that<br><em>drive real</em> change.
       </h1>
