@@ -666,7 +666,7 @@
       gap: 20px;
       max-width: 1300px;
       margin: 0 auto;
-      align-items: stretch;
+      align-items: start;
     }
 
     @media (max-width: 768px) {
@@ -684,9 +684,42 @@
       transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
     }
 
-    /* Branding stretches to match short form height; short form is portrait */
-    .work-card--branding { min-height: 300px; }
+    /* 16:9 branding, 9:16 short form */
+    .work-card--branding { aspect-ratio: 16 / 9; }
     .work-card--short    { aspect-ratio: 9 / 16; }
+
+    /* Left column stacks branding card + CTA card */
+    .ourwork-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .work-cta-card {
+      flex: 1;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 36px 40px;
+      gap: 24px;
+    }
+
+    .work-cta-card p {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 2vw, 1.7rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    .work-cta-card p em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+    }
     .work-card.visible {
       opacity: 1;
       transform: translateY(0);
@@ -1506,6 +1539,9 @@
 
     <div class="ourwork-grid">
 
+      <!-- Left column: branding card + CTA card -->
+      <div class="ourwork-left">
+
       <!-- Personal Branding card -->
       <a href="personal-branding.html" class="work-card work-card--branding" aria-label="View Personal Branding work">
         <div class="work-card-bg"></div>
@@ -1529,6 +1565,14 @@
           </div>
         </div>
       </a>
+
+      <!-- CTA card -->
+      <div class="work-cta-card fade-up">
+        <p>Got a project<br><em>in mind?</em></p>
+        <a class="btn-primary" href="#contact">Start a Project</a>
+      </div>
+
+      </div><!-- end ourwork-left -->
 
       <!-- Short Form card -->
       <a href="short-form.html" class="work-card work-card--short" aria-label="View Short Form work">
