@@ -560,35 +560,27 @@
     }
     .optimise-card:hover { transform: translateY(-6px); }
 
-    /* Clarity — deep blue */
-    .optimise-card.card-clarity {
-      background: linear-gradient(145deg, #0f1f4a 0%, #071130 60%, #03070f 100%);
-      border: 1px solid rgba(59,130,246,0.3);
-      box-shadow: 0 0 60px rgba(59,130,246,0.08), inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-    .optimise-card.card-clarity:hover {
-      box-shadow: 0 0 80px rgba(59,130,246,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-
-    /* Authority — rich purple, featured */
-    .optimise-card.card-authority {
-      background: linear-gradient(145deg, #2d1060 0%, #1a0840 60%, #0d0420 100%);
-      border: 1px solid rgba(139,92,246,0.4);
-      box-shadow: 0 0 80px rgba(139,92,246,0.15), inset 0 1px 0 rgba(255,255,255,0.08);
-      padding: 56px 32px 48px;
-    }
-    .optimise-card.card-authority:hover {
-      box-shadow: 0 0 100px rgba(139,92,246,0.28), inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-
-    /* Trust — deep teal/cyan */
+    /* All cards share the site background gradient */
+    .optimise-card.card-clarity,
+    .optimise-card.card-authority,
     .optimise-card.card-trust {
-      background: linear-gradient(145deg, #062a2a 0%, #031818 60%, #020e0e 100%);
-      border: 1px solid rgba(20,184,166,0.3);
-      box-shadow: 0 0 60px rgba(20,184,166,0.08), inset 0 1px 0 rgba(255,255,255,0.06);
+      background:
+        radial-gradient(ellipse 55% 45% at 0% 0%, rgba(29,78,216,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 45% at 100% 100%, rgba(29,78,216,0.18) 0%, transparent 70%),
+        linear-gradient(160deg, #03080f 0%, #020510 40%, #010208 100%);
+      border: 1px solid rgba(29,78,216,0.2);
+      box-shadow: 0 0 60px rgba(29,78,216,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
     }
+    .optimise-card.card-authority {
+      padding: 56px 32px 48px;
+      border-color: rgba(29,78,216,0.32);
+      box-shadow: 0 0 80px rgba(29,78,216,0.14), inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+    .optimise-card.card-clarity:hover,
+    .optimise-card.card-authority:hover,
     .optimise-card.card-trust:hover {
-      box-shadow: 0 0 80px rgba(20,184,166,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+      box-shadow: 0 0 100px rgba(29,78,216,0.22), inset 0 1px 0 rgba(255,255,255,0.09);
+      border-color: rgba(29,78,216,0.4);
     }
 
     .optimise-icon {
