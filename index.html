@@ -837,6 +837,61 @@
       pointer-events: none;
     }
 
+    /* ─── OUR MISSION ───────────────────────────────────────────── */
+    #mission {
+      background: transparent;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      #mission { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .mission-left .section-label { margin-bottom: 20px; }
+
+    .mission-heading {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 36px;
+    }
+
+    .mission-quote {
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 48px 48px 44px;
+    }
+
+    .mission-quote-mark {
+      font-family: Georgia, serif;
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--muted);
+      opacity: 0.4;
+      margin-bottom: 20px;
+      display: block;
+      user-select: none;
+    }
+
+    .mission-quote p {
+      font-size: clamp(0.95rem, 1.5vw, 1.08rem);
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .mission-quote p strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
     /* ─── CONTACT ───────────────────────────────────────────────── */
     #contact {
       background: transparent;
@@ -1239,6 +1294,7 @@
   <nav class="floating-nav" id="floatingNav" role="navigation" aria-label="Floating navigation">
     <a href="#ourwork">Our Work</a>
     <a href="#optimise">Values</a>
+    <a href="#about">About</a>
     <a class="pill-cta" href="#contact">Let's Work</a>
   </nav>
 
@@ -1246,6 +1302,7 @@
   <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
     <a href="#ourwork" onclick="closeMobile()">Our Work</a>
     <a href="#optimise" onclick="closeMobile()">Values</a>
+    <a href="#about" onclick="closeMobile()">About</a>
     <a href="#contact" onclick="closeMobile()">Let's Work</a>
   </div>
 
@@ -1257,6 +1314,7 @@
     <ul class="nav-links" role="list">
       <li><a href="#ourwork">Our Work</a></li>
       <li><a href="#optimise">Values</a></li>
+      <li><a href="#about">About</a></li>
       <li><a class="nav-cta" href="#contact">Let's Work</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -1338,6 +1396,21 @@
           <span class="marquee-item">Authority Building</span><span class="marquee-dot">·</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="divider" role="separator"></div>
+
+  <!-- ─── OUR MISSION ──────────────────────────────────────────── -->
+  <section id="mission" aria-labelledby="mission-title">
+    <div class="mission-left fade-up">
+      <p class="section-label">Mission</p>
+      <h2 class="mission-heading" id="mission-title">Our<br>Mission</h2>
+      <a class="btn-primary" href="#contact">Let's Work</a>
+    </div>
+    <div class="mission-quote fade-up">
+      <span class="mission-quote-mark">"</span>
+      <p>Our mission is quite simple: <strong>We create content that builds authority and trust.</strong> By crafting stories that continuously solve problems for your audience and truly showcasing the impact you have on others. We ensure every detail is aligned with your core values — helping you build a genuine connection with your audience.</p>
     </div>
   </section>
 
