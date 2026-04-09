@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Masibu Manima — PhilmsbyJay</title>
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet" />
+
+  <style>
+    @font-face { font-family: 'NeueHaasDisplay'; src: url('NeueHaasDisplayLight.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'NeueHaasDisplay'; src: url('NeueHaasDisplayLightItalic.woff2') format('woff2'); font-weight: 300; font-style: italic; font-display: swap; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #03070f; --bg-card: #080e1a; --bg-hover: #0d1625;
+      --border: rgba(255,255,255,0.08); --text: #f0f0f0; --muted: rgba(240,240,240,0.45);
+      --accent: #e8e0d0; --accent2: #c8b89a;
+      --font-head: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-body: 'NeueHaasDisplay', 'Helvetica Neue', sans-serif;
+      --radius: 12px; --nav-h: 68px; --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    body::before { content: ''; position: fixed; inset: 0; z-index: -2; background: radial-gradient(ellipse 55% 45% at 0% 0%, rgba(29,78,216,0.22) 0%, transparent 70%), radial-gradient(ellipse 55% 45% at 100% 100%, rgba(29,78,216,0.18) 0%, transparent 70%), linear-gradient(160deg, #03080f 0%, #020510 40%, #010208 100%); }
+    body::after { content: ''; position: fixed; inset: 0; z-index: -1; background-image: linear-gradient(rgba(59,130,246,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.055) 1px, transparent 1px); background-size: 60px 60px; -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.15) 70%, transparent 100%); mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.15) 70%, transparent 100%); pointer-events: none; }
+
+    ::selection { background: var(--accent2); color: #000; }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(24px, 5vw, 80px); transition: opacity 0.5s var(--ease); }
+    nav.scrolled { opacity: 0; pointer-events: none; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; margin-left: 24px; margin-top: 32px; }
+    .nav-logo img { height: 64px; width: auto; display: block; transition: opacity 0.2s ease; }
+    .nav-logo:hover img { opacity: 0.75; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg) !important; background: var(--accent); padding: 9px 22px; border-radius: 100px; text-decoration: none; transition: background 0.2s ease, transform 0.15s ease !important; }
+    .nav-cta:hover { background: #fff !important; transform: translateY(-1px); }
+
+    .floating-nav { position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-12px); z-index: 101; display: flex; align-items: center; background: rgba(8,14,26,0.82); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 6px 8px; opacity: 0; pointer-events: none; transition: opacity 0.45s var(--ease) 0.25s, transform 0.45s var(--ease) 0.25s; }
+    .floating-nav.visible { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .floating-nav a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 8px 13px; border-radius: 100px; transition: color 0.2s ease, background 0.2s ease; white-space: nowrap; }
+    .floating-nav a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+    .floating-nav .pill-cta { color: var(--bg) !important; background: var(--accent); padding: 8px 20px; font-weight: 600; }
+    .floating-nav .pill-cta:hover { background: #fff; color: var(--bg) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: all 0.3s var(--ease); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 99; background: rgba(8,8,8,0.97); backdrop-filter: blur(24px); flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; color: var(--text); text-decoration: none; transition: color 0.2s ease; }
+    .mobile-menu a:hover { color: var(--accent2); }
+
+    .back-wrap { padding: calc(var(--nav-h) + 48px) clamp(24px, 5vw, 80px) 0; max-width: 1100px; margin: 0 auto; }
+    .back-btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--muted); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 18px 10px 14px; border-radius: 100px; border: 1px solid transparent; transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; }
+    .back-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); box-shadow: 0 0 20px rgba(232,224,208,0.08); }
+    .back-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; transition: transform 0.25s var(--ease); }
+    .back-btn:hover svg { transform: translateX(-3px); }
+
+    .client-hero { padding: 48px clamp(24px, 5vw, 80px) 56px; max-width: 1100px; margin: 0 auto; }
+    .client-name { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(3rem, 8vw, 6rem); line-height: 1.0; letter-spacing: -0.02em; color: var(--text); margin-bottom: 28px; }
+    .client-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 100px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); font-size: 0.8rem; font-weight: 400; letter-spacing: 0.05em; color: var(--muted); }
+    .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); flex-shrink: 0; }
+
+    .video-section { padding: 0 clamp(24px, 5vw, 80px) 80px; max-width: 1100px; margin: 0 auto; }
+    .video-wrap { position: relative; width: 100%; padding-top: 56.25%; border-radius: 16px; overflow: hidden; background: #060a12; border: 1px solid var(--border); }
+    .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; display: block; }
+
+    .section { padding: 0 clamp(24px, 5vw, 80px) 80px; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent2); margin-bottom: 20px; }
+    .section-divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 48px; }
+
+    .overview-text { font-size: 1.1rem; line-height: 1.8; color: rgba(240,240,240,0.75); max-width: 720px; }
+
+    .image-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .image-card { border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); aspect-ratio: 4 / 3; position: relative; }
+    .image-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-card-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.1); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .strategy-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .strategy-block h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.15rem; color: var(--text); margin-bottom: 14px; }
+    .strategy-block p { font-size: 0.95rem; line-height: 1.75; color: rgba(240,240,240,0.65); }
+
+    .results-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+    .results-block p { font-size: 1.05rem; line-height: 1.85; color: rgba(240,240,240,0.75); }
+
+    .explore-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .explore-card { display: block; text-decoration: none; color: var(--text); border-radius: 16px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); transition: transform 0.4s var(--ease), border-color 0.3s ease, box-shadow 0.4s ease; }
+    .explore-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.18); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .explore-card-image { width: 100%; aspect-ratio: 3 / 2; overflow: hidden; background: #0a1020; }
+    .explore-card-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s var(--ease); }
+    .explore-card:hover .explore-card-image img { transform: scale(1.04); }
+    .explore-card-image-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.1); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    .explore-card-info { padding: 20px 24px 24px; }
+    .explore-card-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.15rem; color: var(--text); margin-bottom: 4px; }
+    .explore-card-role { font-size: 0.8rem; color: var(--muted); }
+
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .image-grid-2, .strategy-grid, .explore-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="topNav">
+    <a href="index.html" class="nav-logo"><img src="logo.svg" alt="PhilmsbyJay" /></a>
+    <ul class="nav-links">
+      <li><a href="index.html#recentwork">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="floating-nav" id="floatingNav">
+    <a href="index.html#recentwork">Work</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact" class="pill-cta">Let's Talk</a>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#recentwork">Work</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Let's Talk</a>
+  </div>
+
+  <div class="back-wrap">
+    <a href="personal-branding.html" class="back-btn">
+      <svg viewBox="0 0 16 16"><path d="M13 8H3M3 8L7 4M3 8L7 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Brands
+    </a>
+  </div>
+
+  <div class="client-hero fade-up">
+    <h1 class="client-name">Masibu<br>Manima</h1>
+    <div class="client-tags">
+      <span class="tag"><span class="tag-dot"></span>Personal Branding</span>
+      <span class="tag"><span class="tag-dot"></span>Sep 2025 – Present</span>
+    </div>
+  </div>
+
+  <div class="video-section fade-up">
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/6lUcoj_7WPE?autoplay=1&mute=1&rel=0&modestbranding=1&color=white"
+        title="Masibu Manima — Personal Brand Film"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <div class="section fade-up">
+    <p class="section-label">Overview</p>
+    <div class="section-divider"></div>
+    <p class="overview-text">Add an overview of Masibu here — who they are, what they do, and what you set out to achieve together. This is the story behind the work.</p>
+  </div>
+
+  <div class="section fade-up">
+    <div class="image-grid-2">
+      <div class="image-card"><div class="image-card-placeholder">Add image</div></div>
+      <div class="image-card"><div class="image-card-placeholder">Add image</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-up">
+    <p class="section-label">Strategy &amp; Execution</p>
+    <div class="section-divider"></div>
+    <div class="strategy-grid">
+      <div class="strategy-block">
+        <h3>Strategy</h3>
+        <p>Describe the strategic approach here — how you identified Masibu's brand positioning, target audience, and the direction for the creative.</p>
+      </div>
+      <div class="strategy-block">
+        <h3>Execution</h3>
+        <p>Describe the execution here — the filming process, creative decisions made on set, and how the final edit was shaped to tell Masibu's story.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade-up">
+    <div class="image-grid-2">
+      <div class="image-card"><div class="image-card-placeholder">Add image</div></div>
+      <div class="image-card"><div class="image-card-placeholder">Add image</div></div>
+    </div>
+  </div>
+
+  <div class="section fade-up">
+    <p class="section-label">Results</p>
+    <div class="section-divider"></div>
+    <div class="results-block">
+      <p>Add results here — what impact did the work have? Growth metrics, feedback from Masibu, engagement numbers, or qualitative outcomes.</p>
+    </div>
+  </div>
+
+  <div class="section fade-up">
+    <p class="section-label">Explore More Brands</p>
+    <div class="section-divider"></div>
+    <div class="explore-grid">
+      <a href="sayce.html" class="explore-card">
+        <div class="explore-card-image"><div class="explore-card-image-placeholder">Add image</div></div>
+        <div class="explore-card-info">
+          <p class="explore-card-name">Sayce Holmes-Lewis</p>
+          <p class="explore-card-role">Personal Brand</p>
+        </div>
+      </a>
+      <a href="layinka.html" class="explore-card">
+        <div class="explore-card-image"><div class="explore-card-image-placeholder">Add image</div></div>
+        <div class="explore-card-info">
+          <p class="explore-card-name">LáYínká Sánní</p>
+          <p class="explore-card-role">Personal Brand</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const topNav = document.getElementById('topNav');
+    const floatingNav = document.getElementById('floatingNav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) { topNav.classList.add('scrolled'); floatingNav.classList.add('visible'); }
+      else { topNav.classList.remove('scrolled'); floatingNav.classList.remove('visible'); }
+    }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); } });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+  </script>
+</body>
+</html>
