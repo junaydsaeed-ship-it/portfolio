@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Branding — PhilmsbyJay</title>
   <meta name="description" content="PhilmsbyJay — Personal Branding. Brand films, documentaries, and storytelling that builds your digital identity." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -577,12 +578,12 @@
     <div class="video-grid" id="videoGrid">
 
       <!-- Card 1 -->
-      <article class="video-card" data-video-id="ddHtpCPtyho" aria-label="Video: Personal Brand Film 01">
+      <article class="video-card" data-video-id="NQe9wSV7WEY" aria-label="Video: Personal Brand Film 01">
         <div class="video-wrap">
-          <iframe src="about:blank" title="Personal Brand Film 01"
+          <iframe src="https://www.youtube-nocookie.com/embed/NQe9wSV7WEY?rel=0&modestbranding=1&color=white" title="Personal Brand Film 01"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen loading="lazy"></iframe>
-          <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
+            allowfullscreen></iframe>
         </div>
         <div class="video-meta">
           <p class="video-category">Brand Film</p>
@@ -595,6 +596,7 @@
       <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Documentary 01">
         <div class="video-wrap">
           <iframe src="about:blank" title="Documentary 01"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
@@ -610,6 +612,7 @@
       <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Commercial 01">
         <div class="video-wrap">
           <iframe src="about:blank" title="Commercial 01"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
@@ -625,6 +628,7 @@
       <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Personal Brand Film 02">
         <div class="video-wrap">
           <iframe src="about:blank" title="Personal Brand Film 02"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
@@ -640,6 +644,7 @@
       <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Campaign 01">
         <div class="video-wrap">
           <iframe src="about:blank" title="Campaign 01"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
@@ -655,6 +660,7 @@
       <article class="video-card" data-video-id="dQw4w9WgXcQ" aria-label="Video: Interview 01">
         <div class="video-wrap">
           <iframe src="about:blank" title="Interview 01"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
@@ -792,7 +798,8 @@
       const iframe = card.querySelector('iframe');
       if (!iframe || (iframe.src && !iframe.src.includes('about:blank'))) return;
       const params = new URLSearchParams({ autoplay: '1', modestbranding: '1', rel: '0', showinfo: '0', color: 'white' });
-      iframe.src = `https://www.youtube.com/embed/${videoId}?${params}`;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?${params}`;
       const overlay = card.querySelector('.video-overlay');
       if (overlay) overlay.classList.add('playing');
     }
