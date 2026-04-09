@@ -1272,7 +1272,7 @@
       position: relative;
       width: 100%;
       padding-top: 56.25%;
-      background: #060a12;
+      background: #060a12 center / cover no-repeat;
     }
     .recent-work-frame .video-wrap iframe {
       position: absolute;
@@ -1803,6 +1803,15 @@
     const rwFrame   = document.getElementById('recentWorkFrame');
     const rwPlay    = document.getElementById('rwPlay');
     const rwSection = document.getElementById('recentwork');
+
+    // Set thumbnail as background before play
+    if (rwFrame) {
+      const videoId = rwFrame.dataset.videoId;
+      if (videoId) {
+        const wrap = rwFrame.querySelector('.video-wrap');
+        if (wrap) wrap.style.backgroundImage = `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`;
+      }
+    }
 
     if (rwFrame && rwSection) {
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
