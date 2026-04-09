@@ -1453,11 +1453,12 @@
         YouTube video ID (the part after ?v= in the URL).
         ════════════════════════════════════════════════════
       -->
-      <div class="recent-work-frame" id="recentWorkFrame" data-video-id="dQw4w9WgXcQ">
+      <div class="recent-work-frame" id="recentWorkFrame" data-video-id="0CWGRHBgANE">
         <div class="video-wrap">
           <iframe
             src="about:blank"
             title="Recent Work"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
@@ -1834,7 +1835,8 @@
         const iframe = rwFrame.querySelector('iframe');
         if (!iframe || !iframe.src.includes('about:blank')) return;
         const params = new URLSearchParams({ autoplay: '1', modestbranding: '1', rel: '0', showinfo: '0', color: 'white' });
-        iframe.src = `https://www.youtube.com/embed/${videoId}?${params}`;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?${params}`;
         const overlay = rwFrame.querySelector('.video-overlay');
         if (overlay) overlay.classList.add('playing');
         if (rwPlay) rwPlay.classList.add('hidden');
