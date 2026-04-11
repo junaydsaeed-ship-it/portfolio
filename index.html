@@ -343,7 +343,7 @@
       z-index: 0;
     }
 
-    .hero-inner { position: relative; z-index: 1; width: 100%; max-width: 1100px; text-align: center; }
+    .hero-inner { position: relative; z-index: 1; width: 100%; max-width: 1300px; text-align: center; }
 
     .hero-eyebrow {
       display: inline-flex;
@@ -373,10 +373,9 @@
       display: block;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: clamp(2.5rem, 8.5vw, 8rem);
+      font-size: 6.5vw;
       letter-spacing: -0.04em;
       text-transform: uppercase;
-      white-space: nowrap;
       text-align: center;
       color: var(--text);
     }
@@ -385,11 +384,15 @@
       font-family: 'Libre Baskerville', serif;
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(2rem, 6vw, 5.5rem);
+      font-size: 4.5vw;
       letter-spacing: -0.02em;
       color: var(--muted);
       margin-top: 8px;
       text-align: center;
+    }
+    @media (max-width: 600px) {
+      .hero-title .title-main { font-size: clamp(2rem, 11vw, 4rem); }
+      .hero-title .title-sub { font-size: clamp(1.5rem, 8vw, 3rem); }
     }
 
     .hero-sub {
