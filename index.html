@@ -1018,11 +1018,84 @@
     /* ─── CONTACT ───────────────────────────────────────────────── */
     #contact {
       background: transparent;
-      text-align: center;
+      text-align: left;
       padding: 120px clamp(24px, 5vw, 80px);
     }
 
-    .contact-inner { max-width: 640px; margin: 0 auto; }
+    .contact-inner { max-width: 800px; margin: 0; }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      resize: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .contact-form textarea { min-height: 130px; }
+
+    .contact-form button {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--text);
+      color: #000;
+      border: none;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .contact-form button:hover { opacity: 0.85; }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .contact-inner { max-width: 100%; }
+    }
 
     #contact .eyebrow {
       font-size: 0.68rem;
@@ -1694,20 +1767,25 @@
         Whether it's a full brand film, a campaign, or a series of reels —
         let's talk about bringing your vision to life.
       </p>
-      <div class="contact-links">
-        <!-- Replace with your actual email / socials -->
-        <a class="contact-link" href="mailto:hello@yourname.com" aria-label="Email">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-          hello@yourname.com
-        </a>
-        <a class="contact-link" href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          @yourhandle
-        </a>
-        <a class="contact-link" href="https://youtube.com/@yourchannel" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.58 7.19a2.66 2.66 0 0 0-1.87-1.88C18 5 12 5 12 5s-6 0-7.71.31A2.66 2.66 0 0 0 2.42 7.19 27.69 27.69 0 0 0 2 12a27.69 27.69 0 0 0 .42 4.81 2.66 2.66 0 0 0 1.87 1.88C6 19 12 19 12 19s6 0 7.71-.31a2.66 2.66 0 0 0 1.87-1.88A27.69 27.69 0 0 0 22 12a27.69 27.69 0 0 0-.42-4.81z"/><polygon stroke-linecap="round" stroke-linejoin="round" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
-          YouTube Channel
-        </a>
+      <div class="contact-layout">
+        <!-- Message form -->
+        <form class="contact-form" action="https://formspree.io/f/xldjedbn" method="POST">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <textarea name="message" placeholder="Tell me about your project…" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+        <!-- Contact links -->
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:philmsbyjay@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+            philmsbyjay@gmail.com
+          </a>
+          <a class="contact-link" href="https://instagram.com/philmsbyjay" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            @philmsbyjay
+          </a>
+        </div>
       </div>
     </div>
   </section>
