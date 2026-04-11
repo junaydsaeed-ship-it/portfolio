@@ -1018,23 +1018,27 @@
     /* ─── CONTACT ───────────────────────────────────────────────── */
     #contact {
       background: transparent;
-      text-align: left;
       padding: 120px clamp(24px, 5vw, 80px);
     }
 
-    .contact-inner { max-width: 800px; margin: 0; }
+    .contact-inner { max-width: 1200px; margin: 0 auto; }
 
-    .contact-layout {
+    /* Top row: heading left, form right */
+    .contact-top {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 64px;
       align-items: start;
+      margin-bottom: 56px;
     }
+
+    .contact-text { text-align: left; }
 
     .contact-form {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      text-align: left;
     }
 
     .contact-form input,
@@ -1042,11 +1046,11 @@
       width: 100%;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 14px 18px;
+      border-radius: 12px;
+      padding: 18px 22px;
       color: var(--text);
       font-family: var(--font-body);
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 400;
       outline: none;
       transition: border-color 0.2s ease, background 0.2s ease;
@@ -1062,14 +1066,14 @@
       background: rgba(255,255,255,0.07);
     }
 
-    .contact-form textarea { min-height: 130px; }
+    .contact-form textarea { min-height: 160px; }
 
     .contact-form button {
-      align-self: flex-start;
+      align-self: flex-end;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 28px;
+      padding: 16px 32px;
       background: var(--text);
       color: #000;
       border: none;
@@ -1085,16 +1089,20 @@
 
     .contact-form button:hover { opacity: 0.85; }
 
+    /* Bottom: socials centred */
     .contact-links {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: flex-start;
+      flex-direction: row;
+      gap: 32px;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 40px;
     }
 
     @media (max-width: 768px) {
-      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
-      .contact-inner { max-width: 100%; }
+      .contact-top { grid-template-columns: 1fr; gap: 40px; }
+      .contact-links { flex-direction: column; gap: 16px; }
     }
 
     #contact .eyebrow {
@@ -1761,31 +1769,35 @@
   <!-- ─── CONTACT ───────────────────────────────────────────────── -->
   <section id="contact" class="fade-up" aria-labelledby="contact-title">
     <div class="contact-inner">
-      <p class="eyebrow">Let's Create Together</p>
-      <h2 id="contact-title">Have a project<br>in mind?</h2>
-      <p>
-        Whether it's a full brand film, a campaign, or a series of reels —
-        let's talk about bringing your vision to life.
-      </p>
-      <div class="contact-layout">
-        <!-- Message form -->
+      <!-- Top row -->
+      <div class="contact-top">
+        <!-- Left: heading -->
+        <div class="contact-text">
+          <p class="eyebrow">Let's Create Together</p>
+          <h2 id="contact-title">Have a project<br>in mind?</h2>
+          <p>
+            Whether it's a full brand film, a campaign, or a series of reels —
+            let's talk about bringing your vision to life.
+          </p>
+        </div>
+        <!-- Right: form -->
         <form class="contact-form" action="https://formspree.io/f/xwvwgroa" method="POST">
           <input type="text" name="name" placeholder="Your name" required />
           <input type="email" name="email" placeholder="Your email" required />
           <textarea name="message" placeholder="Tell me about your project…" required></textarea>
           <button type="submit">Send Message</button>
         </form>
-        <!-- Contact links -->
-        <div class="contact-links">
-          <a class="contact-link" href="mailto:philmsbyjay@gmail.com" aria-label="Email">
-            <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-            philmsbyjay@gmail.com
-          </a>
-          <a class="contact-link" href="https://instagram.com/philmsbyjay" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            @philmsbyjay
-          </a>
-        </div>
+      </div>
+      <!-- Bottom: socials centred -->
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:philmsbyjay@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+          philmsbyjay@gmail.com
+        </a>
+        <a class="contact-link" href="https://instagram.com/philmsbyjay" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          @philmsbyjay
+        </a>
       </div>
     </div>
   </section>
