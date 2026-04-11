@@ -42,6 +42,20 @@
       font-style: italic;
       font-display: swap;
     }
+    @font-face {
+      font-family: 'NeueHaasDisplay';
+      src: url('NeueHaasDisplayRoman.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'NeueHaasDisplay';
+      src: url('NeueHaasDisplayRomanItalic.woff2') format('woff2');
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
 
     /* ─── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,8 +65,8 @@
       --bg-card:   #0c1628;
       --bg-hover:  #132030;
       --border:    rgba(255,255,255,0.08);
-      --text:      #f0f0f0;
-      --muted:     rgba(240,240,240,0.45);
+      --text:      #ffffff;
+      --muted:     rgba(255,255,255,0.65);
       --accent:    #e8e0d0;          /* warm off-white accent */
       --accent2:   #c8b89a;          /* secondary accent / gold tint */
       --font-head: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -68,8 +82,8 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
-      font-weight: 300;
-      font-size: 16px;
+      font-weight: 400;
+      font-size: 17px;
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
