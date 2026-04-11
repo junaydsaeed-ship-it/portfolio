@@ -1187,17 +1187,22 @@
     }
 
     .recent-work-label {
-      font-family: var(--font-head);
-      font-size: clamp(1rem, 1.8vw, 1.35rem);
-      font-weight: 400;
-      letter-spacing: 0.01em;
-      color: var(--muted);
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
       margin-bottom: 40px;
+      line-height: 1;
     }
-    .recent-work-label em {
+    .recent-work-label .rw-recent {
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+    }
+    .recent-work-label .rw-work {
+      font-family: 'Libre Baskerville', serif;
       font-style: italic;
-      font-weight: 300;
-      color: rgba(240,240,240,0.3);
+      font-weight: 400;
+      color: var(--muted);
     }
 
     .recent-work-perspective {
@@ -1455,7 +1460,7 @@
 
   <!-- ─── RECENT WORK ──────────────────────────────────────────────── -->
   <section id="recentwork" class="fade-up" aria-label="Recent work">
-    <p class="recent-work-label">Recent <em>Work</em></p>
+    <p class="recent-work-label"><span class="rw-recent">Recent</span> <span class="rw-work">Work</span></p>
     <div class="recent-work-perspective">
       <!--
         ════════════════════════════════════════════════════
