@@ -24,7 +24,7 @@
   <!-- Fonts: Instrument Serif (accent word) + Space Grotesk (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@700&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── FONTS ─────────────────────────────────────────────────── */
@@ -343,7 +343,7 @@
       z-index: 0;
     }
 
-    .hero-inner { position: relative; z-index: 1; max-width: 900px; }
+    .hero-inner { position: relative; z-index: 1; width: 100%; max-width: 1100px; text-align: center; }
 
     .hero-eyebrow {
       display: inline-flex;
@@ -366,24 +366,30 @@
     }
 
     .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: 900;
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      color: var(--text);
       margin-bottom: 28px;
+      line-height: 1.0;
     }
-    .hero-title em {
-      font-style: italic;
-      font-weight: 300;
-      color: var(--muted);
+    .hero-title .title-main {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 7.5vw, 5.2rem);
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-align: center;
+      color: var(--text);
     }
-    .hero-title .serif-accent {
-      font-family: 'Instrument Serif', serif;
+    .hero-title .title-sub {
+      display: block;
+      font-family: 'Libre Baskerville', serif;
       font-style: italic;
       font-weight: 400;
-      letter-spacing: 0.01em;
+      font-size: clamp(1.8rem, 5vw, 4rem);
+      letter-spacing: -0.02em;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
     }
 
     .hero-sub {
@@ -1426,7 +1432,8 @@
     <div class="hero-inner">
       <div class="hero-eyebrow">Creative Direction &amp; Videography</div>
       <h1 class="hero-title">
-        Visuals that<br><em>drive real</em> <span class="serif-accent">change.</span>
+        <span class="title-main">Visuals that drive</span>
+        <span class="title-sub">real change.</span>
       </h1>
       <p class="hero-sub">
         We create content that builds brands and drives impact
