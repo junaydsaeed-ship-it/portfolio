@@ -228,9 +228,39 @@
       }
       .brand-card:last-child { border-bottom: none; }
     }
+
+    /* ─── CUSTOM CURSOR ──────────────────────────────────────────── */
+    @media (hover: hover) and (pointer: fine) {
+      * { cursor: none !important; }
+      .cursor {
+        position: fixed;
+        width: 10px; height: 10px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.25s var(--ease), height 0.25s var(--ease);
+        will-change: transform;
+      }
+      .cursor-ring {
+        position: fixed;
+        width: 40px; height: 40px;
+        border: 1px solid rgba(232,224,208,0.3);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s var(--ease), height 0.4s var(--ease), border-color 0.3s ease;
+        will-change: transform;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
   <a href="index.html" class="back-btn">
     <svg viewBox="0 0 16 16"><path d="M13 8H3M3 8L7 4M3 8L7 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -285,6 +315,44 @@
 
   </div>
 
-  <script></script>
+  <script>
+    const cursor     = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    let cursorX = 0, cursorY = 0, ringX = 0, ringY = 0;
+
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.addEventListener('mousemove', e => {
+        cursorX = e.clientX; cursorY = e.clientY;
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top  = cursorY + 'px';
+      });
+
+      function animateRing() {
+        ringX += (cursorX - ringX) * 0.12;
+        ringY += (cursorY - ringY) * 0.12;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top  = ringY + 'px';
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      document.querySelectorAll('a, .brand-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width  = '6px';
+          cursor.style.height = '6px';
+          cursorRing.style.width  = '56px';
+          cursorRing.style.height = '56px';
+          cursorRing.style.borderColor = 'rgba(232,224,208,0.5)';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width  = '10px';
+          cursor.style.height = '10px';
+          cursorRing.style.width  = '40px';
+          cursorRing.style.height = '40px';
+          cursorRing.style.borderColor = 'rgba(232,224,208,0.3)';
+        });
+      });
+    }
+  </script>
 </body>
 </html>
