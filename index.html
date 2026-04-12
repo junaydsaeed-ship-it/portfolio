@@ -210,65 +210,46 @@
     /* ─── FLOATING PILL NAV (appears on scroll) ──────────────────── */
     .floating-nav {
       position: fixed;
-      top: 24px;
-      left: 50%;
+      top: 24px; left: 50%;
       transform: translateX(-50%) translateY(-12px);
       z-index: 101;
-      display: flex;
-      align-items: center;
-      width: max-content;
-      background: rgba(8,14,26,0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      display: flex; align-items: center;
+      background: rgba(8,14,26,0.82);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 100px;
-      padding: 5px;
-      opacity: 0;
-      pointer-events: none;
+      border-radius: 100px; padding: 6px 8px;
+      opacity: 0; pointer-events: none;
       transition: opacity 0.45s var(--ease) 0.25s, transform 0.45s var(--ease) 0.25s;
     }
-    .floating-nav.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-    }
-    .floating-nav.hidden {
-      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
-    }
-    .pill-links {
-      display: flex;
-      align-items: center;
-      flex: 1;
-      justify-content: center;
-    }
+    .floating-nav.visible { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .floating-nav.hidden { transition: opacity 0.3s var(--ease), transform 0.3s var(--ease); }
     .floating-nav a {
       font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 100px;
-      transition: color 0.2s ease;
-      white-space: nowrap;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; padding: 8px 13px;
+      border-radius: 100px; transition: color 0.2s ease, background 0.2s ease; white-space: nowrap;
     }
-    .floating-nav a:hover { color: var(--text); }
+    .floating-nav a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
     .floating-nav .pill-cta {
+      position: relative;
       color: #fff !important;
       background: linear-gradient(160deg, #6d28d9 0%, #4c1d95 50%, #3b0f7a 100%);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 18px rgba(109,40,217,0.35);
-      padding: 10px 22px;
-      font-weight: 600;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      border-radius: 100px;
-      margin-left: 8px;
+      padding: 10px 22px; font-weight: 600; border-radius: 100px; margin-left: 8px;
+      transition: box-shadow 0.2s ease, transform 0.15s ease !important;
     }
     .floating-nav .pill-cta:hover {
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 6px 28px rgba(109,40,217,0.55) !important;
       color: #fff !important;
+    }
+    .floating-nav .pill-cta::after {
+      content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+      background: conic-gradient(from var(--border-angle), transparent 0%, transparent 68%, rgba(255,255,255,0.12) 76%, rgba(255,255,255,0.85) 83%, rgba(255,255,255,0.12) 90%, transparent 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none; animation: border-travel 3.5s linear infinite;
     }
 
     /* hamburger */
@@ -1460,7 +1441,7 @@
 
     /* ─── CUSTOM CURSOR (desktop) ─────────────────────────────────── */
     @media (hover: hover) and (pointer: fine) {
-      body, a, button, [role="button"], input, textarea, select, label, [cursor="pointer"] { cursor: none !important; }
+      * { cursor: none !important; }
       .cursor {
         position: fixed;
         width: 10px; height: 10px;
@@ -1496,11 +1477,9 @@
 
   <!-- ─── FLOATING PILL NAV ───────────────────────────────────── -->
   <nav class="floating-nav" id="floatingNav" role="navigation" aria-label="Floating navigation">
-    <div class="pill-links">
-      <a href="#optimise">Values</a>
-      <a href="#ourwork">Portfolio</a>
-      <a href="#about">About</a>
-    </div>
+    <a href="#optimise">Values</a>
+    <a href="#ourwork">Portfolio</a>
+    <a href="#about">About</a>
     <a class="pill-cta" href="#contact">Contact Us</a>
   </nav>
 
