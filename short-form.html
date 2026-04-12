@@ -471,6 +471,15 @@
       border-color: rgba(255,255,255,0.2);
       box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     }
+    .explore-brand-card-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s var(--ease);
+    }
+    .explore-brand-card:hover .explore-brand-card-video { transform: scale(1.03); }
     .explore-brand-card-bg {
       position: absolute;
       inset: 0;
@@ -709,7 +718,7 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
           <div class="video-thumb">
-            <img src="https://img.youtube.com/vi/r0wHFhNPBsk/hqdefault.jpg" alt="Is Allah using your heartache? thumbnail" />
+            <img src="heartbreak.jpg" alt="Is Allah using your heartache? thumbnail" />
             <div class="play-btn" aria-hidden="true">
               <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="28" cy="28" r="28" fill="rgba(255,255,255,0.18)"/>
@@ -792,7 +801,7 @@
   <section class="explore-section fade-up">
     <h2 class="explore-heading">Explore More <em>Personal Branding</em> Projects</h2>
     <a href="personal-branding.html" class="explore-brand-card">
-      <div class="explore-brand-card-bg"></div>
+      <video class="explore-brand-card-video" src="https://res.cloudinary.com/de14sb9in/video/upload/v1775738970/Montage_compressed_bvbiyp.mp4" muted playsinline loop autoplay preload="auto"></video>
       <div class="explore-brand-card-info">
         <div>
           <p class="explore-brand-card-label">Portfolio</p>
