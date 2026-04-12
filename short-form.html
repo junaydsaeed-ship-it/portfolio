@@ -319,17 +319,16 @@
       border: 1px solid var(--border);
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.35s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(36px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
     }
     .short-card.visible {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.35s ease, box-shadow 0.35s ease;
     }
     .short-card:hover {
-      transform: translateY(-4px) scale(1.01);
+      transform: translateY(-4px) scale(1.015);
       border-color: rgba(255,255,255,0.15);
       box-shadow: 0 24px 48px rgba(0,0,0,0.5);
     }
@@ -524,13 +523,13 @@
 
   <!-- ─── PAGE HERO ─────────────────────────────────────────────── -->
   <div class="page-hero">
-    <a class="page-back fade-up" href="index.html">
+    <a class="page-back fade-up" style="transition-delay:0.05s" href="index.html">
       <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
       Back to Home
     </a>
-    <p class="page-eyebrow fade-up">Portfolio</p>
-    <h1 class="page-title fade-up">Short<br><em>Form</em></h1>
-    <p class="page-sub fade-up">Quick, impactful and designed for today's fast-paced digital world. We create engaging short form content that keeps your audience coming back for more.</p>
+    <p class="page-eyebrow fade-up" style="transition-delay:0.15s">Portfolio</p>
+    <h1 class="page-title fade-up" style="transition-delay:0.25s">Short<br><em>Form</em></h1>
+    <p class="page-sub fade-up" style="transition-delay:0.38s">Quick, impactful and designed for today's fast-paced digital world. We create engaging short form content that keeps your audience coming back for more.</p>
   </div>
 
   <div class="divider"></div>
@@ -753,14 +752,13 @@
     }
     mobileMenu.addEventListener('click', e => { if (e.target === mobileMenu) closeMobile(); });
 
-    const observerOpts = { threshold: 0.1, rootMargin: '0px 0px -60px 0px' };
+    const observerOpts = { threshold: 0.08, rootMargin: '0px 0px -40px 0px' };
     const cardObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const idx = Array.from(entry.target.parentElement.children).indexOf(entry.target);
-          setTimeout(() => entry.target.classList.add('visible'), idx * 80);
-          cardObserver.unobserve(entry.target);
-        }
+      // Group cards that become visible at the same time (same row)
+      const visible = entries.filter(e => e.isIntersecting);
+      visible.forEach((entry, i) => {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        cardObserver.unobserve(entry.target);
       });
     }, observerOpts);
     document.querySelectorAll('.short-card').forEach(c => cardObserver.observe(c));
