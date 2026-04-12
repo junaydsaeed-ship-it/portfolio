@@ -90,8 +90,8 @@
     }
     nav.scrolled { opacity: 0; pointer-events: none; }
 
-    .nav-logo { display: flex; align-items: center; text-decoration: none; margin-left: 24px; margin-top: 32px; }
-    .nav-logo img { height: 64px; width: auto; display: block; transition: opacity 0.2s ease; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 56px; width: auto; display: block; transition: opacity 0.2s ease; }
     .nav-logo:hover img { opacity: 0.75; }
 
     .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
@@ -102,13 +102,33 @@
     }
     .nav-links a:hover { color: var(--text); }
 
+    /* ─── PURPLE CTA BUTTON (matches homepage) ─────────────────── */
+    @property --border-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+    @keyframes border-travel { to { --border-angle: 360deg; } }
+
     .nav-cta {
+      position: relative;
       font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--bg) !important; background: var(--accent);
-      padding: 9px 22px; border-radius: 100px; text-decoration: none;
-      transition: background 0.2s ease, transform 0.15s ease !important;
+      color: #fff !important;
+      background: linear-gradient(160deg, #6d28d9 0%, #4c1d95 50%, #3b0f7a 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 18px rgba(109,40,217,0.35);
+      padding: 9px 22px; border-radius: 10px; text-decoration: none;
+      transition: box-shadow 0.2s ease, transform 0.15s ease !important;
     }
-    .nav-cta:hover { background: #fff !important; transform: translateY(-1px); }
+    .nav-cta:hover {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 6px 28px rgba(109,40,217,0.55) !important;
+      transform: translateY(-1px);
+    }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+      background: conic-gradient(from var(--border-angle), transparent 0%, transparent 68%, rgba(255,255,255,0.12) 76%, rgba(255,255,255,0.85) 83%, rgba(255,255,255,0.12) 90%, transparent 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      animation: border-travel 3.5s linear infinite;
+    }
 
     .floating-nav {
       position: fixed; top: 24px; left: 50%;
@@ -129,8 +149,28 @@
       border-radius: 100px; transition: color 0.2s ease, background 0.2s ease; white-space: nowrap;
     }
     .floating-nav a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
-    .floating-nav .pill-cta { color: var(--bg) !important; background: var(--accent); padding: 8px 20px; font-weight: 600; }
-    .floating-nav .pill-cta:hover { background: #fff; color: var(--bg) !important; }
+    .floating-nav .pill-cta {
+      position: relative;
+      color: #fff !important;
+      background: linear-gradient(160deg, #6d28d9 0%, #4c1d95 50%, #3b0f7a 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 18px rgba(109,40,217,0.35);
+      padding: 10px 22px; font-weight: 600; border-radius: 100px; margin-left: 8px;
+      transition: box-shadow 0.2s ease, transform 0.15s ease !important;
+    }
+    .floating-nav .pill-cta:hover {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 6px 28px rgba(109,40,217,0.55) !important;
+      color: #fff !important;
+    }
+    .floating-nav .pill-cta::after {
+      content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+      background: conic-gradient(from var(--border-angle), transparent 0%, transparent 68%, rgba(255,255,255,0.12) 76%, rgba(255,255,255,0.85) 83%, rgba(255,255,255,0.12) 90%, transparent 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      animation: border-travel 3.5s linear infinite;
+    }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
     .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: all 0.3s var(--ease); }
@@ -433,7 +473,8 @@
   <nav id="topNav">
     <a href="index.html" class="nav-logo"><img src="logo.svg" alt="PhilmsbyJay" /></a>
     <ul class="nav-links">
-      <li><a href="index.html#recentwork">Work</a></li>
+      <li><a href="personal-branding.html">Personal Branding</a></li>
+      <li><a href="short-form.html">Short Form</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
     </ul>
@@ -441,13 +482,16 @@
   </nav>
 
   <div class="floating-nav" id="floatingNav">
-    <a href="index.html#recentwork">Work</a>
+    <a href="personal-branding.html">Personal Branding</a>
+    <a href="short-form.html">Short Form</a>
     <a href="index.html#about">About</a>
     <a href="index.html#contact" class="pill-cta">Let's Talk</a>
   </div>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html#recentwork">Work</a>
+    <a href="index.html">Home</a>
+    <a href="personal-branding.html">Personal Branding</a>
+    <a href="short-form.html">Short Form</a>
     <a href="index.html#about">About</a>
     <a href="index.html#contact">Let's Talk</a>
   </div>
