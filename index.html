@@ -1460,7 +1460,7 @@
 
     /* ─── CUSTOM CURSOR (desktop) ─────────────────────────────────── */
     @media (hover: hover) and (pointer: fine) {
-      body { cursor: none; }
+      body, a, button, [role="button"], input, textarea, select, label, [cursor="pointer"] { cursor: none !important; }
       .cursor {
         position: fixed;
         width: 10px; height: 10px;
