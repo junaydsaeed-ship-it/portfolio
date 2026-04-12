@@ -310,7 +310,7 @@
     /* ─── SHORT FORM GRID (9:16 portrait) ─────────────────────────── */
     .video-grid-short {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 28px;
     }
 
@@ -399,8 +399,100 @@
 
     .video-tag.tag-type { color: var(--accent2); border-color: rgba(200,184,154,0.25); background: rgba(200,184,154,0.06); }
 
-    @media (max-width: 900px) { .video-grid-short { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .video-grid-short { grid-template-columns: 1fr; } }
+
+    /* ─── EXPLORE MORE ───────────────────────────────────────────── */
+    .explore-section {
+      padding: 80px clamp(24px, 5vw, 80px);
+    }
+    .explore-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+    .explore-heading em {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      color: var(--muted);
+    }
+    .explore-brand-card {
+      display: block;
+      position: relative;
+      height: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .explore-brand-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .explore-brand-card-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #0a1020 0%, #060c18 100%);
+    }
+    .explore-brand-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(2,4,10,0.95) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .explore-brand-card-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 32px 36px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .explore-brand-card-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 8px;
+    }
+    .explore-brand-card-title {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .explore-brand-card-arrow {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .explore-brand-card:hover .explore-brand-card-arrow {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .explore-brand-card-arrow svg {
+      width: 18px; height: 18px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+    }
 
     /* ─── CONTACT ─────────────────────────────────────────────────── */
     #contact {
@@ -601,16 +693,16 @@
         </div>
       </article>
 
-      <!-- Card 4: The return to SFX -->
-      <article class="short-card" data-video-id="75fYtL-QAks" aria-label="The return to SFX">
+      <!-- Card 4: The Return to SFX -->
+      <article class="short-card" data-video-id="75fYtL-QAks" aria-label="The Return to SFX">
         <div class="video-wrap">
-          <iframe src="about:blank" title="The return to SFX"
+          <iframe src="about:blank" title="The Return to SFX"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
         </div>
         <div class="video-meta">
-          <h3 class="video-title">The return to SFX</h3>
+          <h3 class="video-title">The Return to SFX</h3>
           <p class="video-desc">Sharing a journey of resilience, growth, and proving that setbacks do not define your future.</p>
           <div class="video-tags">
             <span class="video-tag tag-type">Highlight Reel</span>
@@ -624,14 +716,33 @@
 
   <div class="divider"></div>
 
+  <!-- ─── EXPLORE MORE ─────────────────────────────────────────── -->
+  <section class="explore-section fade-up">
+    <h2 class="explore-heading">Explore More <em>Personal Branding</em> Projects</h2>
+    <a href="personal-branding.html" class="explore-brand-card">
+      <div class="explore-brand-card-bg"></div>
+      <div class="explore-brand-card-info">
+        <div>
+          <p class="explore-brand-card-label">Portfolio</p>
+          <p class="explore-brand-card-title">Personal Branding</p>
+        </div>
+        <div class="explore-brand-card-arrow">
+          <svg viewBox="0 0 20 20"><path d="M4 16L16 4M16 4H8M16 4V12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- ─── CONTACT ────────────────────────────────────────────────── -->
   <section id="contact" aria-labelledby="contact-title">
     <div class="contact-inner fade-up">
       <p class="eyebrow">Let's Create Together</p>
-      <h2 id="contact-title">Ready to go<br>viral?</h2>
+      <h2 id="contact-title">Have a project<br>in mind?</h2>
       <p>
-        Whether it's a reel strategy, a TikTok series, or social-first content —
-        let's talk about creating content that stops the scroll.
+        Whether it's a full brand film, a campaign, or a series of reels —
+        let's talk about bringing your vision to life.
       </p>
       <div class="contact-links">
         <a class="contact-link" href="mailto:hello@yourname.com" aria-label="Email">
