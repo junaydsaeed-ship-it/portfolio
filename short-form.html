@@ -349,10 +349,45 @@
       border: none;
       display: block;
     }
+    /* ─── THUMBNAIL ─────────────────────────────────────────────── */
+    .video-thumb {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      transition: opacity 0.3s ease;
+    }
+    .video-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s var(--ease);
+    }
+    .short-card:hover .video-thumb img { transform: scale(1.04); }
+    .video-thumb.hidden { opacity: 0; pointer-events: none; }
+
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      background: rgba(0,0,0,0.18);
+      transition: background 0.25s ease;
+    }
+    .short-card:hover .play-btn { background: rgba(0,0,0,0.30); }
+    .play-btn svg {
+      width: 56px; height: 56px;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+      transition: transform 0.25s var(--ease);
+    }
+    .short-card:hover .play-btn svg { transform: scale(1.1); }
+
     .video-overlay {
       position: absolute;
       inset: 0;
-      z-index: 2;
+      z-index: 3;
       cursor: default;
       background: transparent;
     }
@@ -645,6 +680,15 @@
           <iframe src="about:blank" title="Views don't equal authority"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/IynSRkNVypc/hqdefault.jpg" alt="Views don't equal authority thumbnail" />
+            <div class="play-btn" aria-hidden="true">
+              <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="28" fill="rgba(255,255,255,0.18)"/>
+                <path d="M23 19.5L38 28L23 36.5V19.5Z" fill="white"/>
+              </svg>
+            </div>
+          </div>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
         </div>
         <div class="video-meta">
@@ -663,6 +707,15 @@
           <iframe src="about:blank" title="Is Allah using your heartache?"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/r0wHFhNPBsk/hqdefault.jpg" alt="Is Allah using your heartache? thumbnail" />
+            <div class="play-btn" aria-hidden="true">
+              <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="28" fill="rgba(255,255,255,0.18)"/>
+                <path d="M23 19.5L38 28L23 36.5V19.5Z" fill="white"/>
+              </svg>
+            </div>
+          </div>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
         </div>
         <div class="video-meta">
@@ -681,6 +734,15 @@
           <iframe src="about:blank" title="Bankside"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/taTvYRp_aZs/hqdefault.jpg" alt="Bankside thumbnail" />
+            <div class="play-btn" aria-hidden="true">
+              <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="28" fill="rgba(255,255,255,0.18)"/>
+                <path d="M23 19.5L38 28L23 36.5V19.5Z" fill="white"/>
+              </svg>
+            </div>
+          </div>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
         </div>
         <div class="video-meta">
@@ -699,6 +761,15 @@
           <iframe src="about:blank" title="The Return to SFX"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/75fYtL-QAks/hqdefault.jpg" alt="The Return to SFX thumbnail" />
+            <div class="play-btn" aria-hidden="true">
+              <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="28" fill="rgba(255,255,255,0.18)"/>
+                <path d="M23 19.5L38 28L23 36.5V19.5Z" fill="white"/>
+              </svg>
+            </div>
+          </div>
           <div class="video-overlay" aria-hidden="true" oncontextmenu="return false;"></div>
         </div>
         <div class="video-meta">
@@ -851,6 +922,8 @@
       if (!iframe || (iframe.src && !iframe.src.includes('about:blank'))) return;
       const params = new URLSearchParams({ autoplay: '1', modestbranding: '1', rel: '0', showinfo: '0', color: 'white' });
       iframe.src = `https://www.youtube.com/embed/${videoId}?${params}`;
+      const thumb = card.querySelector('.video-thumb');
+      if (thumb) thumb.classList.add('hidden');
       const overlay = card.querySelector('.video-overlay');
       if (overlay) overlay.classList.add('playing');
     }
