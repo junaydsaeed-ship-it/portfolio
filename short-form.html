@@ -310,14 +310,14 @@
     /* ─── SHORT FORM GRID (9:16 portrait) ─────────────────────────── */
     .video-grid-short {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
 
     .short-card {
       position: relative;
       background: var(--bg-card);
-      border-radius: var(--radius);
+      border-radius: 20px;
       border: 1px solid var(--border);
       overflow: hidden;
       cursor: pointer;
@@ -434,7 +434,8 @@
 
     .video-tag.tag-type { color: var(--accent2); border-color: rgba(200,184,154,0.25); background: rgba(200,184,154,0.06); }
 
-    @media (max-width: 560px) { .video-grid-short { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .video-grid-short { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .video-grid-short { grid-template-columns: 1fr; } }
 
     /* ─── EXPLORE MORE ───────────────────────────────────────────── */
     .explore-section {
