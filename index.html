@@ -1437,6 +1437,78 @@
       .section-desc { text-align: left; max-width: 100%; }
       .section-header { flex-direction: column; align-items: flex-start; }
       footer { justify-content: center; text-align: center; }
+
+      /* Nav — reset desktop offsets, shrink logo, hide inline CTA */
+      nav { padding: 0 18px; }
+      .nav-logo { margin-left: 0; margin-top: 0; }
+      .nav-logo img { height: 42px; }
+      .nav-right { margin-top: 0; }
+      .nav-cta { display: none; }
+
+      /* Hide floating pill — hamburger menu is the mobile nav */
+      .floating-nav { display: none !important; }
+      /* Keep the main navbar visible on mobile — hamburger must stay reachable */
+      nav.scrolled { opacity: 1 !important; pointer-events: auto !important; }
+
+      /* Tighter section padding */
+      section { padding: 64px 20px; }
+      #optimise { padding: 64px 20px; }
+      #contact { padding: 72px 20px 80px; }
+      #recentwork { padding: 16px 20px 48px; }
+
+      /* Hero */
+      #hero { padding: calc(var(--nav-h) + 32px) 20px 64px; min-height: 88svh; }
+      .hero-eyebrow { margin-bottom: 20px; font-size: 0.65rem; }
+      .hero-eyebrow::before, .hero-eyebrow::after { width: 20px; }
+      .hero-title { margin-bottom: 22px; }
+      .hero-sub { margin-bottom: 32px; max-width: 100%; }
+      .hero-actions { gap: 12px; }
+      .btn-primary, .btn-secondary { padding: 13px 24px; font-size: 0.76rem; }
+
+      /* Optimise cards */
+      .optimise-heading { margin-bottom: 44px; }
+      .optimise-card { padding: 36px 24px 32px; }
+      .optimise-card.card-authority { padding: 44px 24px 40px; }
+      .optimise-icon { width: 72px; height: 72px; margin-bottom: 24px; }
+
+      /* Our work */
+      .ourwork-heading { margin-bottom: 44px; }
+      .ourwork-grid { gap: 16px; }
+      .ourwork-left { gap: 16px; }
+      .work-card-content { padding: 24px 22px; }
+      .work-card-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .work-card-desc { max-width: 100%; }
+      .work-cta-card { padding: 28px 22px; flex-direction: column; align-items: flex-start; gap: 18px; text-align: left; }
+      /* Short-form card full-bleed 9:16 is too tall on mobile — cap it */
+      .work-card--short { aspect-ratio: 4 / 5; }
+
+      /* About */
+      .about-text { padding-left: 0; }
+
+      /* Mission */
+      .mission-heading { margin-bottom: 28px; }
+      .mission-quote { padding: 28px 24px; }
+      .mission-quote-mark { font-size: 3rem; margin-bottom: 12px; }
+
+      /* Contact */
+      .contact-form input, .contact-form textarea { padding: 14px 18px; font-size: 0.95rem; }
+      .contact-form textarea { min-height: 140px; }
+      .contact-form button { align-self: stretch; justify-content: center; padding: 15px 28px; }
+
+      /* Recent work — disable 3D tilt on mobile */
+      .recent-work-frame { transform: none !important; }
+      .recent-work-perspective { perspective: none; }
+      .rw-play-btn { width: 56px; height: 56px; }
+
+      /* Marquee tighter */
+      .marquee-item { font-size: 0.9rem; padding: 0 18px; }
+    }
+
+    @media (max-width: 420px) {
+      .nav-logo img { height: 38px; }
+      section { padding: 56px 18px; }
+      #hero { padding: calc(var(--nav-h) + 24px) 18px 56px; }
+      .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 0.72rem; }
     }
 
     /* ─── CUSTOM CURSOR (desktop) ─────────────────────────────────── */

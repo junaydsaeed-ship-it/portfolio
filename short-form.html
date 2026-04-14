@@ -657,6 +657,43 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       footer { justify-content: center; text-align: center; }
+
+      /* Nav — reset desktop offsets, shrink logo */
+      nav { padding: 0 18px; }
+      .nav-logo { margin-left: 0; margin-top: 0; }
+      .nav-logo img { height: 42px; }
+
+      /* Hide floating pill — hamburger menu is the mobile nav */
+      .floating-nav { display: none !important; }
+      /* Keep the main navbar visible on mobile — hamburger must stay reachable */
+      nav.scrolled { opacity: 1 !important; pointer-events: auto !important; }
+
+      /* Page hero */
+      .page-hero { padding: calc(var(--nav-h) + 36px) 20px 56px; min-height: 40svh; }
+      .page-back { margin-bottom: 32px; }
+
+      /* Section spacing */
+      section { padding: 56px 20px; }
+      .explore-section { padding: 56px 20px; }
+      #contact { padding: 72px 20px 80px; }
+
+      /* Video grid — tighter gap on mobile */
+      .video-grid-short { gap: 16px; }
+      .video-meta { padding: 18px 18px 22px; }
+      .video-title { font-size: 1rem; }
+
+      /* Explore brand card shorter on mobile */
+      .explore-brand-card { height: 360px; }
+      .explore-brand-card-info { padding: 24px 24px; }
+
+      .divider { margin: 0 20px; }
+    }
+
+    @media (max-width: 420px) {
+      .nav-logo img { height: 38px; }
+      section { padding: 48px 18px; }
+      .page-hero { padding: calc(var(--nav-h) + 24px) 18px 48px; }
+      .explore-brand-card { height: 300px; }
     }
 
     /* ─── CUSTOM CURSOR ───────────────────────────────────────────── */

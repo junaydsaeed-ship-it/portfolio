@@ -457,6 +457,38 @@
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
       .image-grid-2, .strategy-grid, .explore-grid { grid-template-columns: 1fr; }
+
+      /* Nav */
+      nav { padding: 0 18px; }
+      .nav-logo img { height: 42px; }
+
+      /* Hide floating pill — hamburger is the mobile nav */
+      .floating-nav { display: none !important; }
+      /* Keep the main navbar visible on mobile */
+      nav.scrolled { opacity: 1 !important; pointer-events: auto !important; }
+
+      /* Back + hero tighter */
+      .back-wrap { padding: calc(var(--nav-h) + 28px) 20px 0; }
+      .client-hero { padding: 32px 20px 40px; }
+      .client-name { font-size: clamp(2.4rem, 11vw, 3.6rem); margin-bottom: 20px; }
+      .tag { padding: 7px 14px; font-size: 0.72rem; }
+
+      /* Sections */
+      .video-section { padding: 0 20px 56px; }
+      .section { padding: 0 20px 56px; }
+      .section-divider { margin-bottom: 32px; }
+      .overview-text { font-size: 1rem; line-height: 1.75; }
+      .strategy-block { padding: 24px 22px; }
+      .strategy-block h3 { font-size: 1.05rem; margin-bottom: 10px; }
+      .strategy-block p { font-size: 0.9rem; }
+      .results-block { padding: 28px 22px; }
+      .results-block p { font-size: 0.95rem; }
+      .explore-card-info { padding: 16px 20px 20px; }
+    }
+
+    @media (max-width: 420px) {
+      .nav-logo img { height: 38px; }
+      .back-wrap, .client-hero, .video-section, .section { padding-left: 18px; padding-right: 18px; }
     }
 
     @media (hover: hover) and (pointer: fine) {

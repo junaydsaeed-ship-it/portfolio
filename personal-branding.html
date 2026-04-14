@@ -214,11 +214,23 @@
         height: auto;
       }
       .brand-card {
-        height: 70vw;
+        height: 78vw;
+        min-height: 280px;
         border-right: none;
         border-bottom: 1px solid rgba(255,255,255,0.06);
       }
       .brand-card:last-child { border-bottom: none; }
+
+      /* Tighter info padding, readable name size */
+      .brand-card-info { padding: 0 24px 28px; }
+      .brand-card-name { font-size: 1.75rem; line-height: 1.1; margin-bottom: 4px; }
+      .brand-card-role { font-size: 0.7rem; }
+      .brand-card-logo { top: 20px; width: 56px; }
+      .brand-card-arrow { bottom: 28px; right: 24px; }
+      .brand-card-arrow { opacity: 1; transform: none; }
+
+      /* Back button — smaller & safer on small screens */
+      .back-btn { top: 20px; left: 20px; padding: 9px 16px 9px 12px; font-size: 0.7rem; }
     }
 
     /* ─── CUSTOM CURSOR ──────────────────────────────────────────── */
